@@ -14,7 +14,7 @@ const Header: React.FC<HeaderProps> = ({ imageUrl, title, subtitle }) => {
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="fixed top-0 left-0 m-8 flex items-start"
+      className="fixed top-0 left-0 m-4 sm:m-6 md:m-8 flex items-start"
     >
       <Image
         src={imageUrl}
@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ imageUrl, title, subtitle }) => {
       />
       <div className="flex flex-col">
         <h1
-          className="text-5xl font-bold text-white bg-red-500 p-4 rounded-full inline-block"
+          className="text-3xl sm:text-4xl md:text-5xl font-bold text-white bg-red-500 p-4 rounded-full inline-block"
           style={{
             background: "linear-gradient(45deg, #FF5F6D, #FFC371)",
             WebkitBackgroundClip: "text",

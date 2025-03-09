@@ -184,7 +184,7 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl, caption }) => {
                           />
                         </motion.div>
                         <motion.div
-                          className="absolute inset-0 flex items-center justify-center text-white text-lg font-bold pointer-events-none text-justify p-4"
+                          className="absolute inset-0 flex items-center justify-center text-white text-lg font-bold pointer-events-none text-center p-4"
                           variants={hoverTextVariants}
                         >
                           {item.description}

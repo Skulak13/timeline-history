@@ -9,13 +9,19 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 
+interface GalleryImage {
+  url: string;
+  caption?: string;
+  captionPosition?: "top" | "bottom";
+}
+
 interface TimelineEventProps {
   text: string;
   description: string;
   position: "top" | "bottom";
   imageUrl?: string;
   iconType: "education" | "usa" | "work" | "project";
-  timelineGalleryImages?: string[];
+  timelineGalleryImages?: GalleryImage[];
 }
 
 const TimelineEvent: React.FC<TimelineEventProps> = ({
@@ -62,9 +68,20 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
     }
   };
 
-  const displayedImage = timelineGalleryImages
-    ? timelineGalleryImages[currentImageIndex]
+  const displayedImageUrl = timelineGalleryImages
+    ? timelineGalleryImages[currentImageIndex].url
     : imageUrl;
+
+  const displayedImageCaption = timelineGalleryImages
+    ? timelineGalleryImages[currentImageIndex].caption
+    : null;
+
+  const captionPosition = timelineGalleryImages
+    ? timelineGalleryImages[currentImageIndex].captionPosition || "bottom"
+    : "bottom";
+
+  // Definiujemy właściwość textShadow, która pasuje do tła bloku tekstowego.
+  const textShadowStyle = { textShadow: "2px 2px 4px rgba(76,224,210,0.5)" };
 
   return (
     <motion.div
@@ -78,7 +95,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       onHoverEnd={() => setIsHovered(false)}
     >
       <div className="flex flex-col items-center">
-        {/* KÓŁKO z ikoną – gradient jak w poprzedniej propozycji */}
+        {/* Kółko z ikoną – gradient */}
         <motion.div
           className="absolute w-16 h-16 
                      bg-gradient-to-r from-[#FF5F6D] to-[#FFC371]
@@ -93,17 +110,17 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
           {renderIcon()}
         </motion.div>
 
-        {/* BLOK TEKSTOWY z pastelowym turkusem (unikamy szarego) */}
+        {/* Blok tekstowy */}
         <motion.div
           layout
           className={`
             p-4 border border-[#4CE0D2]/40 
             rounded-lg shadow-lg flex flex-col items-center
             ${position === "top" ? "mb-64" : "mt-64"} 
-            bg-[rgba(76,224,210,0.5)]  /* Turkus z przezroczystością */
-            backdrop-blur-sm          /* Delikatne rozmycie tła */
+            bg-[rgba(76,224,210,0.5)]
+            backdrop-blur-sm
             transition-colors duration-300 
-            text-black                /* Czarny tekst dla kontrastu */
+            text-[#1A1A1A]
           `}
           animate={{
             width: isHovered ? 570 : 200,
@@ -119,12 +136,24 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
             >
               <div className="relative" style={{ width: 200 }}>
                 <motion.img
-                  src={displayedImage}
+                  src={displayedImageUrl}
                   alt="Galeria obrazów"
                   className="object-cover"
                   animate={{ width: 200, height: "100%", borderRadius: "0%" }}
                   transition={{ duration: 0.3 }}
                 />
+                {/* Overlay z napisem */}
+                {displayedImageCaption && (
+                  <div
+                    className="absolute left-0 w-full text-center text-sm text-white px-2 py-1 bg-[#4CE0D2] opacity-70"
+                    style={
+                      captionPosition === "top" ? { top: 0 } : { bottom: 0 }
+                    }
+                  >
+                    {displayedImageCaption}
+                  </div>
+                )}
+
                 {timelineGalleryImages && (
                   <>
                     <button
@@ -149,11 +178,17 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                 )}
               </div>
               <div className="flex flex-col flex-1 pl-4">
-                <span className="text-center mb-2 font-bold text-lg">
+                <span
+                  className="text-center mb-2 font-bold text-lg drop-shadow-strong"
+                  style={textShadowStyle}
+                >
                   {text}
                 </span>
                 <div className="flex-1">
-                  <span className="text-sm text-center leading-relaxed">
+                  <span
+                    className="text-sm text-center leading-relaxed drop-shadow-strong"
+                    style={textShadowStyle}
+                  >
                     {description}
                   </span>
                 </div>
@@ -163,7 +198,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
             <div className="flex flex-col-reverse items-center w-full">
               {timelineGalleryImages ? (
                 <motion.img
-                  src={displayedImage}
+                  src={displayedImageUrl}
                   alt="Galeria obrazów"
                   className="w-16 h-16 rounded-full object-cover"
                   animate={{ width: 64, height: 64, borderRadius: "50%" }}
@@ -181,7 +216,8 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
               <motion.span
                 animate={{ fontSize: 16 }}
                 transition={{ duration: 0.3 }}
-                className="mb-2 text-center font-bold"
+                className="mb-2 text-center font-bold drop-shadow-strong"
+                style={textShadowStyle}
               >
                 {text}
               </motion.span>
