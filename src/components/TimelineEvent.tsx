@@ -89,7 +89,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="relative flex flex-col items-center mx-7"
+      className="relative flex flex-col items-center xl:mx-3.5 3xl:mx-7"
       style={{ zIndex: isHovered ? 1000 : 1 }}
       onHoverStart={() => setIsHovered(true)}
       onHoverEnd={() => setIsHovered(false)}
@@ -97,11 +97,11 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       <div className="flex flex-col items-center">
         {/* Kółko z ikoną – gradient */}
         <motion.div
-          className="absolute w-16 h-16 
+          className="absolute w-[3.84vw] h-[3.84vw] 
                      bg-gradient-to-r from-[#FF5F6D] to-[#FFC371]
                      rounded-full inset-y-0 my-auto 
                      flex items-center justify-center 
-                     shadow-lg"
+                     shadow-lg cursor-pointer"
           animate={{
             scale: isHovered ? 1.2 : 1,
             boxShadow: isHovered ? "0px 0px 15px rgba(0,0,0,0.5)" : "none",
@@ -123,23 +123,24 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
             text-[#1A1A1A]
           `}
           animate={{
-            width: isHovered ? 570 : 200,
+            width: isHovered ? "34.2vw" : "12vw",
             height: "auto",
             y: isHovered ? (position === "top" ? -90 : 90) : 0,
           }}
           transition={{ duration: 0.3 }}
         >
           {isHovered ? (
-            <div
-              className="flex flex-row items-stretch"
-              style={{ minHeight: 300 }}
-            >
-              <div className="relative" style={{ width: 200 }}>
+            <div className="flex flex-row items-stretch">
+              <div className="relative" style={{ width: "35.1%" }}>
                 <motion.img
                   src={displayedImageUrl}
                   alt="Galeria obrazów"
                   className="object-cover"
-                  animate={{ width: 200, height: "100%", borderRadius: "0%" }}
+                  animate={{
+                    width: "100%", //to może być zbędne
+                    height: "100%",
+                    borderRadius: "0%",
+                  }}
                   transition={{ duration: 0.3 }}
                 />
                 {/* Overlay z napisem */}
@@ -177,7 +178,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   </>
                 )}
               </div>
-              <div className="flex flex-col flex-1 pl-4">
+              <div className="flex flex-col flex-1 pl-4 style={{ width: '56.6%' }}">
                 <span
                   className="text-center mb-2 font-bold text-lg drop-shadow-strong"
                   style={textShadowStyle}
@@ -214,6 +215,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                 />
               )}
               <motion.span
+                initial={{ fontSize: 14 }}
                 animate={{ fontSize: 16 }}
                 transition={{ duration: 0.3 }}
                 className="mb-2 text-center font-bold drop-shadow-strong"
