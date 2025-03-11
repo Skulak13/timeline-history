@@ -8,6 +8,7 @@ import {
   FaArrowLeft,
   FaArrowRight,
 } from "react-icons/fa";
+import HyphenatedText from "./common/HyphenatedText";
 
 interface GalleryImage {
   url: string;
@@ -178,7 +179,10 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   </>
                 )}
               </div>
-              <div className="flex flex-col flex-1 pl-4 style={{ width: '56.6%' }}">
+              <div
+                className="flex flex-col flex-1 pl-4"
+                style={{ width: "56.6%" }}
+              >
                 <span
                   className="text-center mb-2 font-bold text-lg drop-shadow-strong"
                   style={textShadowStyle}
@@ -186,12 +190,15 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   {text}
                 </span>
                 <div className="flex-1">
-                  <span
-                    className="text-sm text-center leading-relaxed drop-shadow-strong"
-                    style={textShadowStyle}
-                  >
-                    {description}
-                  </span>
+                  <HyphenatedText
+                    text={description}
+                    className="text-sm leading-relaxed drop-shadow-strong"
+                    style={{
+                      ...textShadowStyle,
+                      textAlign: "justify",
+                      hyphens: "auto",
+                    }}
+                  />
                 </div>
               </div>
             </div>
