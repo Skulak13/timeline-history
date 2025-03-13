@@ -11,7 +11,7 @@ export default function Page() {
       initial={{ opacity: 0, scale: 1.1 }}
       animate={{ opacity: 1, scale: 1 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
-      className="bg-cover bg-center min-h-screen"
+      className="bg-cover bg-center min-h-screen overflow-hidden"
       style={{ backgroundImage: "url('/images/background-image.jpg')" }}
     >
       <Header

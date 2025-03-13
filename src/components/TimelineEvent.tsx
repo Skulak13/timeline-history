@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { motion } from "framer-motion";
 import {
   FaGraduationCap,
@@ -35,6 +35,23 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
 }) => {
   const [isHovered, setIsHovered] = useState(false);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
+  // referencja do przechowywania timeouta
+  const hoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Funkcje obsługujące hover z opóźnieniem
+  const handleHoverStart = () => {
+    if (hoverTimeout.current) {
+      clearTimeout(hoverTimeout.current);
+      hoverTimeout.current = null;
+    }
+    setIsHovered(true);
+  };
+
+  const handleHoverEnd = () => {
+    hoverTimeout.current = setTimeout(() => {
+      setIsHovered(false);
+    }, 150); // opóźnienie 150ms – możesz regulować tę wartość
+  };
 
   const renderIcon = () => {
     switch (iconType) {
@@ -90,13 +107,11 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="relative flex flex-col items-center xl:mx-3.5 3xl:mx-7"
+      className="relative flex flex-col items-center sm:mx-3.5 xl:mx-3.5 3xl:mx-7"
       style={{ zIndex: isHovered ? 1000 : 1 }}
-      onHoverStart={() => setIsHovered(true)}
-      onHoverEnd={() => setIsHovered(false)}
     >
       <div className="flex flex-col items-center">
-        {/* Kółko z ikoną – gradient */}
+        {/* Kółko z ikoną – obsługuje hover z opóźnieniem */}
         <motion.div
           className="absolute w-[3.84vw] h-[3.84vw] 
                      bg-gradient-to-r from-[#FF5F6D] to-[#FFC371]
@@ -107,132 +122,138 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
             scale: isHovered ? 1.2 : 1,
             boxShadow: isHovered ? "0px 0px 15px rgba(0,0,0,0.5)" : "none",
           }}
+          onHoverStart={handleHoverStart}
+          onHoverEnd={handleHoverEnd}
         >
           {renderIcon()}
         </motion.div>
 
-        {/* Blok tekstowy */}
-        <motion.div
-          layout
-          className={`
-            p-4 border border-[#4CE0D2]/40 
-            rounded-lg shadow-lg flex flex-col items-center
-            ${position === "top" ? "mb-64" : "mt-64"} 
-            bg-[rgba(76,224,210,0.5)]
-            backdrop-blur-sm
-            transition-colors duration-300 
-            text-[#1A1A1A]
-          `}
-          animate={{
-            width: isHovered ? "34.2vw" : "12vw",
-            height: "auto",
-            y: isHovered ? (position === "top" ? -90 : 90) : 0,
-          }}
-          transition={{ duration: 0.3 }}
-        >
-          {isHovered ? (
-            <div className="flex flex-row items-stretch">
-              <div className="relative" style={{ width: "35.1%" }}>
-                <motion.img
-                  src={displayedImageUrl}
-                  alt="Galeria obrazów"
-                  className="object-cover"
-                  animate={{
-                    width: "100%", //to może być zbędne
-                    height: "100%",
-                    borderRadius: "0%",
-                  }}
-                  transition={{ duration: 0.3 }}
-                />
-                {/* Overlay z napisem */}
-                {displayedImageCaption && (
-                  <div
-                    className="absolute left-0 w-full text-center text-sm text-white px-2 py-1 bg-[#4CE0D2] opacity-70"
-                    style={
-                      captionPosition === "top" ? { top: 0 } : { bottom: 0 }
-                    }
-                  >
-                    {displayedImageCaption}
-                  </div>
-                )}
+        {/* Kontener odpowiedzialny za odstępy między eventami */}
+        <div className={position === "top" ? "mb-64" : "mt-64"}>
+          {/* Interaktywny blok tekstowy – reaguje na hover */}
+          <motion.div
+            layout
+            style={{ transformOrigin: "center" }}
+            className="
+              p-4 border border-[#4CE0D2]/40 
+              rounded-lg shadow-lg flex flex-col items-center
+              bg-[rgba(76,224,210,0.5)]
+              backdrop-blur-sm
+              transition-colors duration-300 
+              text-[#1A1A1A]
+            "
+            animate={{
+              width: isHovered ? "34.2vw" : "12vw",
+              height: "auto",
+              y: isHovered ? (position === "top" ? -90 : 90) : 0,
+            }}
+            transition={{ duration: 0.3 }}
+            onHoverStart={handleHoverStart}
+            onHoverEnd={handleHoverEnd}
+          >
+            {isHovered ? (
+              <div className="flex flex-row items-stretch">
+                <div className="relative" style={{ width: "35.1%" }}>
+                  <motion.img
+                    src={displayedImageUrl}
+                    alt="Galeria obrazów"
+                    className="object-cover"
+                    animate={{
+                      width: "100%",
+                      height: "100%",
+                      borderRadius: "0%",
+                    }}
+                    transition={{ duration: 0.3 }}
+                  />
+                  {displayedImageCaption && (
+                    <div
+                      className="absolute left-0 w-full text-center text-sm text-white px-2 py-1 bg-[#4CE0D2] opacity-70"
+                      style={
+                        captionPosition === "top" ? { top: 0 } : { bottom: 0 }
+                      }
+                    >
+                      {displayedImageCaption}
+                    </div>
+                  )}
 
-                {timelineGalleryImages && (
-                  <>
-                    <button
-                      onClick={handlePrev}
-                      className="absolute left-0 top-1/2 transform -translate-y-1/2 
-                                 bg-[#4CE0D2] p-2 rounded-full 
-                                 opacity-70 hover:opacity-100 
-                                 transition-opacity"
-                    >
-                      <FaArrowLeft className="text-white" />
-                    </button>
-                    <button
-                      onClick={handleNext}
-                      className="absolute right-0 top-1/2 transform -translate-y-1/2 
-                                 bg-[#4CE0D2] p-2 rounded-full 
-                                 opacity-70 hover:opacity-100 
-                                 transition-opacity"
-                    >
-                      <FaArrowRight className="text-white" />
-                    </button>
-                  </>
-                )}
+                  {timelineGalleryImages && (
+                    <>
+                      <button
+                        onClick={handlePrev}
+                        className="absolute left-0 top-1/2 transform -translate-y-1/2 
+                                   bg-[#4CE0D2] p-2 rounded-full 
+                                   opacity-70 hover:opacity-100 
+                                   transition-opacity"
+                      >
+                        <FaArrowLeft className="text-white" />
+                      </button>
+                      <button
+                        onClick={handleNext}
+                        className="absolute right-0 top-1/2 transform -translate-y-1/2 
+                                   bg-[#4CE0D2] p-2 rounded-full 
+                                   opacity-70 hover:opacity-100 
+                                   transition-opacity"
+                      >
+                        <FaArrowRight className="text-white" />
+                      </button>
+                    </>
+                  )}
+                </div>
+                <div
+                  className="flex flex-col flex-1 pl-4"
+                  style={{ width: "56.6%" }}
+                >
+                  <span
+                    className="text-center mb-2 font-bold text-lg drop-shadow-strong"
+                    style={textShadowStyle}
+                  >
+                    {text}
+                  </span>
+                  <div className="flex-1">
+                    <HyphenatedText
+                      text={description}
+                      className="text-sm leading-relaxed drop-shadow-strong"
+                      style={{
+                        ...textShadowStyle,
+                        textAlign: "justify",
+                        hyphens: "auto",
+                      }}
+                    />
+                  </div>
+                </div>
               </div>
-              <div
-                className="flex flex-col flex-1 pl-4"
-                style={{ width: "56.6%" }}
-              >
-                <span
-                  className="text-center mb-2 font-bold text-lg drop-shadow-strong"
+            ) : (
+              <div className="flex flex-col-reverse items-center w-full">
+                {timelineGalleryImages ? (
+                  <motion.img
+                    src={displayedImageUrl}
+                    alt="Galeria obrazów"
+                    className="w-16 h-16 rounded-full object-cover"
+                    animate={{ width: 64, height: 64, borderRadius: "50%" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                ) : (
+                  <motion.img
+                    src={imageUrl}
+                    alt="Opis obrazu"
+                    className="w-16 h-16 rounded-full object-cover mt-2"
+                    animate={{ width: 64, height: 64, borderRadius: "50%" }}
+                    transition={{ duration: 0.3 }}
+                  />
+                )}
+                <motion.span
+                  initial={{ fontSize: 14 }}
+                  animate={{ fontSize: 16 }}
+                  transition={{ duration: 0.3 }}
+                  className="mb-2 text-center font-bold drop-shadow-strong"
                   style={textShadowStyle}
                 >
                   {text}
-                </span>
-                <div className="flex-1">
-                  <HyphenatedText
-                    text={description}
-                    className="text-sm leading-relaxed drop-shadow-strong"
-                    style={{
-                      ...textShadowStyle,
-                      textAlign: "justify",
-                      hyphens: "auto",
-                    }}
-                  />
-                </div>
+                </motion.span>
               </div>
-            </div>
-          ) : (
-            <div className="flex flex-col-reverse items-center w-full">
-              {timelineGalleryImages ? (
-                <motion.img
-                  src={displayedImageUrl}
-                  alt="Galeria obrazów"
-                  className="w-16 h-16 rounded-full object-cover"
-                  animate={{ width: 64, height: 64, borderRadius: "50%" }}
-                  transition={{ duration: 0.3 }}
-                />
-              ) : (
-                <motion.img
-                  src={imageUrl}
-                  alt="Opis obrazu"
-                  className="w-16 h-16 rounded-full object-cover mt-2"
-                  animate={{ width: 64, height: 64, borderRadius: "50%" }}
-                  transition={{ duration: 0.3 }}
-                />
-              )}
-              <motion.span
-                initial={{ fontSize: 14 }}
-                animate={{ fontSize: 16 }}
-                transition={{ duration: 0.3 }}
-                className="mb-2 text-center font-bold drop-shadow-strong"
-                style={textShadowStyle}
-              >
-                {text}
-              </motion.span>
-            </div>
-          )}
-        </motion.div>
+            )}
+          </motion.div>
+        </div>
       </div>
     </motion.div>
   );

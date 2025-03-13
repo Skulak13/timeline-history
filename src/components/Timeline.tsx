@@ -76,7 +76,7 @@ const events: TimelineEventData[] = [
 
 const Timeline: React.FC = () => {
   return (
-    <div className="flex justify-center items-center h-screen">
+    <div className="flex justify-center items-center h-screen overflow-x-hidden overflow-y-hidden">
       <div className="relative flex justify-center items-center w-4/5">
         <div className="absolute w-full h-1 bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] top-1/2 transform -translate-y-1/2"></div>
         {events.map((event, index) => (
