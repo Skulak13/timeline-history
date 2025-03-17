@@ -12,9 +12,11 @@ html, body {
   --font-mono: var(--font-geist-mono);
 
     /* Moje definicje breakpointów */
-    --breakpoint-xl: 89rem;     /* Nowy breakpoint xs */
-    --breakpoint-2xl: 97rem;   /* Nadpisanie domyślnego 2xl */
-    --breakpoint-3xl: 103rem;
+    --breakpoint-2lg: 87.4rem;     /* Nowy breakpoint xs 1398.4px */
+    --breakpoint-3lg: 90.6rem;     /* Nowy breakpoint xs 1450px */
+    --breakpoint-xl: 94rem;     /* Nadpisanie domyślnego xl 1504px */
+    --breakpoint-2xl: 97rem;   /* Nadpisanie domyślnego 2xl 1552px */
+    --breakpoint-3xl: 103rem;  /* 1648px */
 }
 
 :root {

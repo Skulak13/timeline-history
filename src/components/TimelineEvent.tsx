@@ -107,7 +107,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.8, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="relative flex flex-col items-center sm:mx-3.5 xl:mx-3.5 3xl:mx-7"
+      className="relative flex flex-col items-center sm:mx-3.5 3lg:mx-3.5 3xl:mx-7"
       style={{ zIndex: isHovered ? 1000 : 1 }}
     >
       <div className="flex flex-col items-center">
@@ -133,9 +133,12 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
           {/* Interaktywny blok tekstowy – reaguje na hover */}
           <motion.div
             layout
-            style={{ transformOrigin: "center" }}
+            style={{
+              transformOrigin:
+                position === "top" ? "bottom center" : "top center",
+            }}
             className="
-              p-4 border border-[#4CE0D2]/40 
+              p-4 border-2 border-[#4CE0D2]/40 
               rounded-lg shadow-lg flex flex-col items-center
               bg-[rgba(76,224,210,0.5)]
               backdrop-blur-sm
@@ -203,16 +206,32 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   className="flex flex-col flex-1 pl-4"
                   style={{ width: "56.6%" }}
                 >
-                  <span
+                  <motion.span
                     className="text-center mb-2 font-bold text-lg drop-shadow-strong"
                     style={textShadowStyle}
                   >
-                    {text}
-                  </span>
+                    {iconType === "usa" ? (
+                      <>
+                        <span className="hidden xl:inline">
+                          Wyjazd do Stanów Zjednoczonych
+                        </span>
+                        <span className="xl:hidden">Wyjazd do USA</span>
+                      </>
+                    ) : text === "Studia Magisterskie Psychologia" ? (
+                      <>
+                        <span className="hidden 3lg:inline">
+                          Studia magisterskie psychologia
+                        </span>
+                        <span className="3lg:hidden">Studia psychologia</span>
+                      </>
+                    ) : (
+                      text
+                    )}
+                  </motion.span>
                   <div className="flex-1">
                     <HyphenatedText
                       text={description}
-                      className="text-sm leading-relaxed drop-shadow-strong"
+                      className="leading-relaxed drop-shadow-strong sm:text-sm 3lg:text-[15px]"
                       style={{
                         ...textShadowStyle,
                         textAlign: "justify",
@@ -241,13 +260,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                     transition={{ duration: 0.3 }}
                   />
                 )}
-                <motion.span
-                  initial={{ fontSize: 14 }}
-                  animate={{ fontSize: 16 }}
-                  transition={{ duration: 0.3 }}
-                  className="mb-2 text-center font-bold drop-shadow-strong"
-                  style={textShadowStyle}
-                >
+                <motion.span className="mb-2 text-center font-bold drop-shadow-strong text-[13px] 2lg:text-sm 2xl:text-base 3xl:text-base">
                   {text}
                 </motion.span>
               </div>
