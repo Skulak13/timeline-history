@@ -12,10 +12,13 @@ html, body {
   --font-mono: var(--font-geist-mono);
 
     /* Moje definicje breakpointów */
-    --breakpoint-2lg: 87.4rem;     /* Nowy breakpoint xs 1398.4px */
+    --breakpoint-4sm: 76rem;     /* Nowy breakpoint xs 1216px */
+    --breakpoint-lg: 80.6rem;     /* Nowy breakpoint xs 1281.6px */
+    --breakpoint-2lg: 84.1rem;     /* Nowy breakpoint xs 1345.6px */
     --breakpoint-3lg: 90.6rem;     /* Nowy breakpoint xs 1450px */
+    --breakpoint-4lg: 91.81rem;     /* Nowy breakpoint xs 1468.96px */
     --breakpoint-xl: 94rem;     /* Nadpisanie domyślnego xl 1504px */
-    --breakpoint-2xl: 97rem;   /* Nadpisanie domyślnego 2xl 1552px */
+    --breakpoint-2xl: 97.6rem;   /* Nadpisanie domyślnego 2xl 1561.6px */
     --breakpoint-3xl: 103rem;  /* 1648px */
 }
 
@@ -35,4 +38,27 @@ body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+/* Media queries dodane na końcu globals.css */
+@media (max-height: 760px) {
+  .mb-64 {
+    margin-bottom: 14rem; /* Tailwind spacing 60 */
+  }
+  .mt-64 {
+    margin-top: 14rem; /* Tailwind spacing 60 */
+  }
+  .responsive-padding {
+    padding-top: 0.5rem;  /* Tailwind p-2 */
+    padding-bottom: 0.5rem; /* Tailwind p-2 */
+  }
+  .text-font-760 {
+    font-size: 1rem; /* Tailwind text-base */
+  }
+  .text-margin-760 {
+    margin-bottom: 0.25rem; /* Tailwind mb-1 */
+  }
+  .description-font-760 {
+    font-size: 0.813rem; /* Tailwind text-xs */
+  }
 }

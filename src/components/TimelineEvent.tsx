@@ -138,7 +138,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                 position === "top" ? "bottom center" : "top center",
             }}
             className="
-              p-4 border-2 border-[#4CE0D2]/40 
+              p-4 responsive-padding border-2 border-[#4CE0D2]/40 
               rounded-lg shadow-lg flex flex-col items-center
               bg-[rgba(76,224,210,0.5)]
               backdrop-blur-sm
@@ -207,7 +207,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   style={{ width: "56.6%" }}
                 >
                   <motion.span
-                    className="text-center mb-2 font-bold text-lg drop-shadow-strong"
+                    className="text-center text-margin-760 mb-2 font-bold text-font-760 text-[17px] 2lg:text-lg drop-shadow-strong"
                     style={textShadowStyle}
                   >
                     {iconType === "usa" ? (
@@ -224,6 +224,13 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                         </span>
                         <span className="3lg:hidden">Studia psychologia</span>
                       </>
+                    ) : text === "Studia Licencjackie Socjologia" ? (
+                      <>
+                        <span className="hidden 3lg:inline">
+                          Studia magisterskie psychologia
+                        </span>
+                        <span className="3lg:hidden">Studia socjologia</span>
+                      </>
                     ) : (
                       text
                     )}
@@ -231,7 +238,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   <div className="flex-1">
                     <HyphenatedText
                       text={description}
-                      className="leading-relaxed drop-shadow-strong sm:text-sm 3lg:text-[15px]"
+                      className="leading-relaxed drop-shadow-strong description-font-760 text-[13px] 2lg:text-sm 3lg:text-[15px]"
                       style={{
                         ...textShadowStyle,
                         textAlign: "justify",
@@ -260,8 +267,37 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                     transition={{ duration: 0.3 }}
                   />
                 )}
-                <motion.span className="mb-2 text-center font-bold drop-shadow-strong text-[13px] 2lg:text-sm 2xl:text-base 3xl:text-base">
-                  {text}
+                <motion.span className="mb-2 text-center font-bold drop-shadow-strong text-[13px] 4sm:text-sm lg:text-[15px] 2lg:text-base">
+                  {text === "Studia Licencjackie Socjologia" ? (
+                    <>
+                      <span className="hidden 2xl:inline">
+                        Studia licencjackie socjologia
+                      </span>
+                      <span className="2xl:hidden">
+                        Studia <br /> socjologia
+                      </span>
+                    </>
+                  ) : text === "Studia Magisterskie Psychologia" ? (
+                    <>
+                      <span className="hidden 2xl:inline">
+                        Studia magisterskie psychologia
+                      </span>
+                      <span className="2xl:hidden">
+                        Studia <br /> psychologia
+                      </span>
+                    </>
+                  ) : text === "Wyjazd do Stanów Zjednoczonych" ? (
+                    <>
+                      <span className="hidden 4lg:inline">
+                        Wyjazd do Stanów Zjednoczonych
+                      </span>
+                      <span className="4lg:hidden">
+                        Wyjazd <br /> do U.S.A.
+                      </span>
+                    </>
+                  ) : (
+                    text
+                  )}
                 </motion.span>
               </div>
             )}
