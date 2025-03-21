@@ -43,22 +43,53 @@ body {
 /* Media queries dodane na końcu globals.css */
 @media (max-height: 760px) {
   .mb-64 {
-    margin-bottom: 14rem; /* Tailwind spacing 60 */
+    margin-bottom: 14rem; /* Tailwind spacing 56 */
   }
   .mt-64 {
-    margin-top: 14rem; /* Tailwind spacing 60 */
+    margin-top: 14rem; /* Tailwind spacing 56 */
   }
-  .responsive-padding {
+  .responsive-padding-760 {
     padding-top: 0.5rem;  /* Tailwind p-2 */
     padding-bottom: 0.5rem; /* Tailwind p-2 */
   }
-  .text-font-760 {
+  .text-big-font-760 {
     font-size: 1rem; /* Tailwind text-base */
   }
-  .text-margin-760 {
+  .text-big-margin-760 {
     margin-bottom: 0.25rem; /* Tailwind mb-1 */
   }
   .description-font-760 {
-    font-size: 0.813rem; /* Tailwind text-xs */
+    font-size: 0.813rem; /* Tailwind text-[13px] */
   }
+}
+
+@media (max-height: 650px) {
+  .text-min-font-650 {
+    font-size: 0.875rem; /* Tailwind text-sm */
+  }
+  .text-big-font-650 {
+    font-size: 0.875rem; /* Tailwind text-sm */
+  }
+  .text-big-margin-650 {
+    margin-bottom: 0.125rem; /* Tailwind mb-[2px] */
+  }
+  .text-small-margin-650 {
+    margin-bottom: 0.25rem; /* Tailwind mb-1 */
+  }
+  .responsive-padding-650 {
+    padding-top: 0.25rem;  /* Tailwind p-1 */
+    padding-bottom: 0.25rem; /* Tailwind p-1 */
+  }
+  .mb-64 {
+    margin-bottom: 12rem; /* Tailwind spacing 60 */
+  }
+  .mt-64 {
+    margin-top: 12rem; /* Tailwind spacing 60 */
+  }
+  .mt-2 {
+    margin-top: 0.25rem; /* Tailwind spacing 1 */
+  }
+  .description-font-650 {
+    font-size: 0.75rem; /* Tailwind text-xs */
+  } 
 }
