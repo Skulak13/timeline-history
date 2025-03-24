@@ -28,9 +28,11 @@ interface TimelineEventProps {
 // ====== NOWY HOOK: useViewportHeight ======
 // Hook, który nasłuchuje zmian rozmiaru okna i zwraca aktualną wysokość viewportu.
 const useViewportHeight = () => {
-  const [height, setHeight] = useState(window.innerHeight);
+  const [height, setHeight] = useState<number>(0);
 
   useEffect(() => {
+    // Ustawienie wysokości po zamontowaniu komponentu
+    setHeight(window.innerHeight);
     const handleResize = () => setHeight(window.innerHeight);
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -44,7 +46,7 @@ const useViewportHeight = () => {
 // Wykorzystujemy tablicę obiektów (breakpoints) do określenia wartości offsetu.
 const getOffsetByHeight = (height: number, position: "top" | "bottom") => {
   const breakpoints = [
-    { max: 100, offset: 40 },
+    { max: 570, offset: 50 },
     { max: 200, offset: 60 },
     { max: 710, offset: 70 },
     { max: Infinity, offset: 90 },
@@ -171,7 +173,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
               transformOrigin:
                 position === "top" ? "bottom center" : "top center",
             }}
-            className="p-4 responsive-padding-650 responsive-padding-760 border-2 border-[#4CE0D2]/40 rounded-lg shadow-lg flex flex-col items-center bg-[rgba(76,224,210,0.5)] backdrop-blur-sm transition-colors duration-300 text-[#1A1A1A]"
+            className="p-4 padding-min-570 responsive-padding-650 responsive-padding-760 border-2 border-[#4CE0D2]/40 rounded-lg shadow-lg flex flex-col items-center bg-[rgba(76,224,210,0.5)] backdrop-blur-sm transition-colors duration-300 text-[#1A1A1A]"
             animate={{
               width: isHovered ? "34.2vw" : "12vw",
               height: "auto",
@@ -261,7 +263,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   <div className="flex-1">
                     <HyphenatedText
                       text={description}
-                      className="leading-relaxed drop-shadow-strong description-font-650 description-font-760 text-[13px] 2lg:text-sm 3lg:text-[15px]"
+                      className="leading-relaxed drop-shadow-strong description-font-570 description-font-626 description-font-650 description-font-760 text-[13px] 2lg:text-sm 3lg:text-[15px]"
                       style={{
                         ...textShadowStyle,
                         textAlign: "justify",

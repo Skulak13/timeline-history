@@ -25,6 +25,7 @@ html, body {
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --gallery-hover-size: 18rem;
 }
 
 @media (prefers-color-scheme: dark) {
@@ -81,15 +82,59 @@ body {
     padding-bottom: 0.25rem; /* Tailwind p-1 */
   }
   .mb-64 {
-    margin-bottom: 12rem; /* Tailwind spacing 60 */
+    margin-bottom: 12rem; /* Tailwind spacing 48 */
   }
   .mt-64 {
-    margin-top: 12rem; /* Tailwind spacing 60 */
+    margin-top: 12rem; /* Tailwind spacing 48 */
   }
   .mt-2 {
     margin-top: 0.25rem; /* Tailwind spacing 1 */
   }
   .description-font-650 {
     font-size: 0.75rem; /* Tailwind text-xs */
-  } 
+  }
+  .header-margin-650 {
+    margin: 1rem; /* Tailwind m-4 */
+  }
+  .img-header-size-650 {
+    width: 100px;
+    height: 100px; 
+  }
+  .img-header-size-650 {
+    width: 150px;
+    height: 150px; 
+  }
+  .img-header-margin-650 {
+    margin-right: 2rem; /* Tailwind mt-1 */
+  }
+  .title-header-font-650 {
+    font-size: 2.5rem; /* Tailwind text-[40px] */
+  }
 }
+
+@media (max-height: 626px) {
+  .description-font-626 {
+    font-size: 0.688rem; /* Tailwind text-[11px] */
+  }
+}
+@media (max-height: 570px) {
+  .padding-min-570 {
+    padding-right: 0.25rem;  /* Tailwind p-1 */
+    padding-left: 0.25rem; /* Tailwind p-1 */
+  }
+  .mb-64 {
+    margin-bottom: 11rem; /* Tailwind spacing 44 */
+  }
+  .mt-64 {
+    margin-top: 11rem; /* Tailwind spacing 44 */
+  }
+  .description-font-570 {
+    font-size: 0.625rem; /* Tailwind text-[10px] */
+  }
+  .title-header-padding-570 {
+    padding-bottom: 0.5rem; /* Tailwind pb-2 */
+  }
+  .subtitle-header-font-570 {
+    font-size: 1.35rem; /* Tailwind  */
+  }  
+} 

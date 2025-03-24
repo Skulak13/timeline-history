@@ -6,7 +6,6 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface GalleryProps {
   galleryImageUrl: string;
-  caption: string;
 }
 
 interface ImageGalleryItem {
@@ -22,7 +21,7 @@ interface TextGalleryItem {
 
 type GalleryItem = ImageGalleryItem | TextGalleryItem;
 
-const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl, caption }) => {
+const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl }) => {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
   const galleryItems: GalleryItem[] = [
@@ -100,8 +99,8 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl, caption }) => {
       marginTop: "0",
     },
     hover: {
-      width: "18rem",
-      height: "18rem",
+      width: "var(--gallery-hover-size)",
+      height: "var(--gallery-hover-size)",
       marginTop: "-9rem",
       transition: { duration: 0.3 },
     },
@@ -116,21 +115,27 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl, caption }) => {
   };
 
   return (
-    <div className="fixed bottom-0 left-0 mb-10 ml-24" style={{ zIndex: 10 }}>
+    <div
+      className="fixed bottom-0 left-0 mb-10 2lg:mb-6 4lg:mb-10 ml-4 4lg:ml-4 xl:ml-6 3xl:ml-24"
+      style={{ zIndex: 10 }}
+    >
       <div className="flex items-end">
         <button
           onClick={handleToggleGallery}
           className="flex flex-col items-center group cursor-pointer bg-transparent border-none"
         >
-          <Image
-            src={galleryImageUrl}
-            alt="Opis obrazu"
-            width={170}
-            height={170}
-            className="object-cover group-hover:opacity-80"
-          />
+          <div className="relative w-[170px] h-[170px] 2lg:w-[150px] 2lg:h-[150px] 4lg:w-[170px] 4lg:h-[170px]">
+            <Image
+              src={galleryImageUrl}
+              alt="Opis obrazu"
+              fill
+              className="object-cover group-hover:opacity-80"
+            />
+          </div>
           <span className="text-gray-300 text-xl mt-2 group-hover:underline">
-            {caption}
+            Moje&nbsp;
+            <br className="hidden 2lg:block 4lg:hidden" />
+            zainteresowania
           </span>
         </button>
 
@@ -196,7 +201,7 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl, caption }) => {
                   return (
                     <motion.div
                       key={index}
-                      className="w-[18.5rem] h-36 bg-gray-800 flex items-center justify-center text-white text-center mr-2 flex-shrink-0 text-justify p-4"
+                      className="w-[11.6rem] xl:w-[13.4rem] 3xl:w-[18.5rem] h-36 bg-gray-800 flex items-center justify-center text-white text-center mr-2 flex-shrink-0 text-justify p-2 xl:p-4 text-[13px] xl:text-sm 3xl:text-base"
                       custom={customProps}
                       variants={itemVariants}
                       initial="hidden"
@@ -204,7 +209,7 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl, caption }) => {
                       exit="exit"
                       layout
                     >
-                      <span>{item.content}</span>
+                      {item.content}
                     </motion.div>
                   );
                 }

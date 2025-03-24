@@ -21,10 +21,7 @@ export default function Page() {
       />
       <Timeline />
 
-      <Gallery
-        galleryImageUrl="/images/gallery-button.svg"
-        caption="Moje zainteresowania"
-      />
+      <Gallery galleryImageUrl="/images/gallery-button.svg" />
     </motion.main>
   );
 }
