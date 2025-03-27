@@ -94,20 +94,22 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl }) => {
 
   const hoverVariants = {
     rest: {
-      width: "9rem",
-      height: "9rem",
+      width: "var(--gallery-base-size)",
+      height: "var(--gallery-base-size)",
       marginTop: "0",
     },
     hover: {
       width: "var(--gallery-hover-size)",
       height: "var(--gallery-hover-size)",
-      marginTop: "-9rem",
+      marginTop: "calc(-1 * var(--gallery-base-size))",
       transition: { duration: 0.3 },
     },
   };
 
   const hoverTextVariants = {
-    rest: { opacity: 0 },
+    rest: {
+      opacity: 0,
+    },
     hover: {
       opacity: 1,
       transition: { duration: 0.3, delay: 0.3 },
@@ -116,7 +118,7 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl }) => {
 
   return (
     <div
-      className="fixed bottom-0 left-0 mb-10 2lg:mb-6 4lg:mb-10 ml-4 4lg:ml-4 xl:ml-6 3xl:ml-24"
+      className="fixed bottom-0 left-0 gallery-margin-570 mb-5 3sm:mb-10 galllery-margin-770 ml-4 4lg:ml-4 3sm:ml-6 3xl:ml-24"
       style={{ zIndex: 10 }}
     >
       <div className="flex items-end">
@@ -124,7 +126,7 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl }) => {
           onClick={handleToggleGallery}
           className="flex flex-col items-center group cursor-pointer bg-transparent border-none"
         >
-          <div className="relative w-[170px] h-[170px] 2lg:w-[150px] 2lg:h-[150px] 4lg:w-[170px] 4lg:h-[170px]">
+          <div className="relative w-[109px] h-[109px] 3sm:w-[150px] 3sm:h-[150px] 4lg:w-[170px] 4lg:h-[170px]">
             <Image
               src={galleryImageUrl}
               alt="Opis obrazu"
@@ -132,9 +134,9 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl }) => {
               className="object-cover group-hover:opacity-80"
             />
           </div>
-          <span className="text-gray-300 text-xl mt-2 group-hover:underline">
+          <span className="text-gray-300 text-[15px] 3sm:text-xl mt-2 group-hover:underline">
             Moje&nbsp;
-            <br className="hidden 2lg:block 4lg:hidden" />
+            <br className="block 3sm:hidden" />
             zainteresowania
           </span>
         </button>
@@ -158,7 +160,7 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl }) => {
                   return (
                     <motion.div
                       key={index}
-                      className="flex-shrink-0 mr-2"
+                      className="flex-shrink-0 mr-1.5 3sm:mr-2"
                       custom={customProps}
                       variants={itemVariants}
                       initial="hidden"
@@ -189,7 +191,7 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl }) => {
                           />
                         </motion.div>
                         <motion.div
-                          className="absolute inset-0 flex items-center justify-center text-white text-lg font-bold pointer-events-none text-center p-4"
+                          className="absolute inset-0 flex items-center justify-center text-white gallery-description-w-1024 gallery-description-w-1280 gallery-description-font-570 gallery-description-font-770 text-lg font-bold pointer-events-none text-center p-4"
                           variants={hoverTextVariants}
                         >
                           {item.description}
@@ -201,7 +203,7 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl }) => {
                   return (
                     <motion.div
                       key={index}
-                      className="w-[11.6rem] xl:w-[13.4rem] 3xl:w-[18.5rem] h-36 bg-gray-800 flex items-center justify-center text-white text-center mr-2 flex-shrink-0 text-justify p-2 xl:p-4 text-[13px] xl:text-sm 3xl:text-base"
+                      className="w-[9.6rem] 3sm:w-[11.6rem] xl:w-[13.4rem] 3xl:w-[18.5rem] gallery-content-height-650 gallery-content-height-770 gallery-content-height-w-1024 gallery-content-height-w-1280 gallery-content-height-w-1400 h-36 bg-gray-800 flex items-center justify-center text-white text-center mr-2 flex-shrink-0 text-justify p-1 3sm:p-2 xl:p-4 text-[10px] 3sm:text-xs lg:text-[13px] xl:text-sm 3xl:text-base"
                       custom={customProps}
                       variants={itemVariants}
                       initial="hidden"

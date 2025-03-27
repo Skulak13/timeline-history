@@ -12,8 +12,9 @@ html, body {
   --font-mono: var(--font-geist-mono);
 
     /* Moje definicje breakpointów */
+    --breakpoint-3sm: 65.5rem;     /* Nowy breakpoint 1048px */
     --breakpoint-4sm: 76rem;     /* Nowy breakpoint xs 1216px */
-    --breakpoint-lg: 80.6rem;     /* Nowy breakpoint xs 1281.6px */
+    --breakpoint-lg: 81rem;     /* Nowy breakpoint xs 1296px */
     --breakpoint-2lg: 84.1rem;     /* Nowy breakpoint xs 1345.6px */
     --breakpoint-3lg: 90.6rem;     /* Nowy breakpoint xs 1450px */
     --breakpoint-4lg: 91.81rem;     /* Nowy breakpoint xs 1468.96px */
@@ -25,6 +26,7 @@ html, body {
 :root {
   --background: #ffffff;
   --foreground: #171717;
+  --gallery-base-size: 9rem;
   --gallery-hover-size: 18rem;
 }
 
@@ -35,6 +37,16 @@ html, body {
   }
 }
 
+@media (min-height: 850px) and (max-height: 1060px) and (min-width: 1380px) and (max-width: 1420px) {
+  .gallery-content-height-w-1400 {
+    height: 8rem; /* Tailwind h-32 */
+  }
+  :root {
+    --gallery-base-size: 8rem;
+    --gallery-hover-size: 16rem;
+  }
+}
+
 body {
   color: var(--foreground);
   background: var(--background);
@@ -42,25 +54,38 @@ body {
 }
 
 /* Media queries dodane na końcu globals.css */
-@media (max-height: 760px) {
+@media (max-height: 770px) {
   .mb-64 {
     margin-bottom: 14rem; /* Tailwind spacing 56 */
   }
   .mt-64 {
     margin-top: 14rem; /* Tailwind spacing 56 */
   }
-  .responsive-padding-760 {
+  .responsive-padding-770 {
     padding-top: 0.5rem;  /* Tailwind p-2 */
     padding-bottom: 0.5rem; /* Tailwind p-2 */
   }
-  .text-big-font-760 {
+  .text-big-font-770 {
     font-size: 1rem; /* Tailwind text-base */
   }
-  .text-big-margin-760 {
+  .text-big-margin-770 {
     margin-bottom: 0.25rem; /* Tailwind mb-1 */
   }
-  .description-font-760 {
-    font-size: 0.813rem; /* Tailwind text-[13px] */
+  .description-font-770 {
+    font-size: 0.813rem; /* Tailwind text-[13px] to jest do Timeline musisz to potem pozamieniać*/
+  }
+  .galllery-margin-770 {
+    margin-left: 2rem; /* Tailwind ml-8 */
+  }
+  .gallery-description-font-770 {
+    font-size: 1rem; /* Tailwind text-base */
+  }
+  .gallery-content-height-770 {
+    height: 8rem; /* Tailwind h-32 */
+  }
+  :root {
+    --gallery-base-size: 8rem;
+    --gallery-hover-size: 16rem;
   }
 }
 
@@ -97,18 +122,21 @@ body {
     margin: 1rem; /* Tailwind m-4 */
   }
   .img-header-size-650 {
-    width: 100px;
-    height: 100px; 
-  }
-  .img-header-size-650 {
     width: 150px;
     height: 150px; 
   }
   .img-header-margin-650 {
-    margin-right: 2rem; /* Tailwind mt-1 */
+    margin-right: 2rem; /* Tailwind mr-8 */
   }
   .title-header-font-650 {
     font-size: 2.5rem; /* Tailwind text-[40px] */
+  }
+  .gallery-content-height-650 {
+    height: 7rem; /* Tailwind h-28 */
+  }
+  :root {
+    --gallery-base-size: 7rem;
+    --gallery-hover-size: 14rem;
   }
 }
 
@@ -117,6 +145,7 @@ body {
     font-size: 0.688rem; /* Tailwind text-[11px] */
   }
 }
+
 @media (max-height: 570px) {
   .padding-min-570 {
     padding-right: 0.25rem;  /* Tailwind p-1 */
@@ -136,5 +165,70 @@ body {
   }
   .subtitle-header-font-570 {
     font-size: 1.35rem; /* Tailwind  */
+  }
+  .gallery-margin-570 {
+    margin-bottom: 0.5rem; /* Tailwind mb-2 */
+  }
+  .gallery-description-font-570 {
+    font-size: 0.875rem; /* Tailwind text-sm */
   }  
-} 
+}
+
+@media (min-height: 569px) and (max-height: 625px) and (min-width: 980px) and (max-width: 1100px) {
+  .header-margin-w-1024 {
+    margin: 0.75rem; /* Tailwind m-3 */
+  }
+  .img-header-size-w-1024 {
+    width: 140px;
+    height: 140px; 
+  }
+  .img-header-margin-w-1024 {
+    margin-right: 0.25rem; /* Tailwind mr-1 */
+  }
+  .title-header-padding-1024 {
+    padding-bottom: 0.5rem; /* Tailwind pb-2 */
+  }
+  .subtitle-header-font-w-1024 {
+    font-size: 1.25rem; /* Tailwind text-xl */
+  }
+  .gallery-description-w-1024 {
+    font-size: 0.75rem; /* Tailwind text-xm */
+  }
+  .gallery-content-height-w-1024 {
+    height: 6rem; /* Tailwind h-24 */
+  }  
+  :root {
+    --gallery-base-size: 6rem;
+    --gallery-hover-size: 12rem;
+  }
+}
+
+/* Dodane specyficzne media queries dla rozdzielczości 1280x1024 */
+@media (min-width: 1260px) and (max-width: 1300px) and (min-height: 1000px) and (max-height: 1050px) {
+  .header-margin-w-1280 {
+    margin: 1rem; /* np. Tailwind m-4 */
+  }
+  .img-header-size-w-1280 {
+    width: 180px;
+    height: 180px;
+  }
+  .img-header-margin-w-1280 {
+    margin-right: 0.5rem; /* np. Tailwind mr-2 */
+  }
+  .title-header-padding-1280 {
+    padding-bottom: 0.5rem; /* np. Tailwind pb-2 */
+  }
+  .subtitle-header-font-w-1280 {
+    font-size: 1.5rem; /* np. Tailwind text-2xl */
+  }
+  .gallery-description-w-1280 {
+    font-size: 0.875rem; /* np. Tailwind text-sm */
+  }
+  .gallery-content-height-w-1280 {
+    height: 7rem; /* odpowiada Tailwind h-28 */
+  }
+  :root {
+    --gallery-base-size: 7rem;
+    --gallery-hover-size: 14rem;
+  }
+}
