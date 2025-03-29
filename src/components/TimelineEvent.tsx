@@ -173,7 +173,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
               transformOrigin:
                 position === "top" ? "bottom center" : "top center",
             }}
-            className="p-4 padding-min-570 responsive-padding-650 responsive-padding-770 border-2 border-[#4CE0D2]/40 rounded-lg shadow-lg flex flex-col items-center bg-[rgba(76,224,210,0.5)] backdrop-blur-sm transition-colors duration-300 text-[#1A1A1A]"
+            className="p-4 responsive-padding-650 responsive-padding-770 border-2 border-[#4CE0D2]/40 rounded-lg shadow-lg flex flex-col items-center bg-[rgba(76,224,210,0.5)] backdrop-blur-sm transition-colors duration-300 text-[#1A1A1A]"
             animate={{
               width: isHovered ? "34.2vw" : "12vw",
               height: "auto",
@@ -188,27 +188,29 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
             {isHovered ? (
               <div className="flex flex-row items-stretch">
                 <div className="relative" style={{ width: "35.1%" }}>
-                  <motion.img
-                    src={displayedImageUrl}
-                    alt="Galeria obrazów"
-                    className="object-cover"
-                    animate={{
-                      width: "100%",
-                      height: "100%",
-                      borderRadius: "0%",
-                    }}
-                    transition={{ duration: 0.3 }}
-                  />
-                  {displayedImageCaption && (
-                    <div
-                      className="absolute left-0 w-full text-center text-sm text-white px-2 py-1 bg-[#4CE0D2] opacity-70"
-                      style={
-                        captionPosition === "top" ? { top: 0 } : { bottom: 0 }
-                      }
-                    >
-                      {displayedImageCaption}
-                    </div>
-                  )}
+                  <div className="relative group h-full">
+                    <motion.img
+                      src={displayedImageUrl}
+                      alt="Galeria obrazów"
+                      className="w-full h-full object-cover"
+                      animate={{
+                        width: "100%",
+                        height: "100%",
+                        borderRadius: "0%",
+                      }}
+                      transition={{ duration: 0.3 }}
+                    />
+                    {displayedImageCaption && (
+                      <div
+                        className="absolute left-0 w-full text-center text-sm text-white px-2 py-1 bg-[#4CE0D2] opacity-0 group-hover:opacity-88 transition-opacity duration-300"
+                        style={
+                          captionPosition === "top" ? { top: 0 } : { bottom: 0 }
+                        }
+                      >
+                        {displayedImageCaption}
+                      </div>
+                    )}
+                  </div>
 
                   {timelineGalleryImages && (
                     <>
@@ -216,13 +218,13 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                         onClick={handlePrev}
                         className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#4CE0D2] p-2 rounded-full opacity-70 hover:opacity-100 transition-opacity"
                       >
-                        <FaArrowLeft className="text-white" />
+                        <FaArrowLeft className="text-white w-2 h-2" />
                       </button>
                       <button
                         onClick={handleNext}
                         className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#4CE0D2] p-2 rounded-full opacity-70 hover:opacity-100 transition-opacity"
                       >
-                        <FaArrowRight className="text-white" />
+                        <FaArrowRight className="text-white w-2 h-2" />
                       </button>
                     </>
                   )}
@@ -279,7 +281,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   <motion.img
                     src={displayedImageUrl}
                     alt="Galeria obrazów"
-                    className="w-16 h-16 rounded-full object-cover mt-2"
+                    className="rounded-full object-cover mt-2"
                     animate={{ width: 64, height: 64, borderRadius: "50%" }}
                     transition={{ duration: 0.3 }}
                   />
@@ -287,12 +289,12 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   <motion.img
                     src={imageUrl}
                     alt="Opis obrazu"
-                    className="w-16 h-16 rounded-full object-cover mt-2"
+                    className="rounded-full object-cover mt-2"
                     animate={{ width: 64, height: 64, borderRadius: "50%" }}
                     transition={{ duration: 0.3 }}
                   />
                 )}
-                <motion.span className="text-small-margin-650 mb-2 text-center font-bold drop-shadow-strong text-min-font-650  text-[13px] 4sm:text-sm lg:text-[15px] 2lg:text-base">
+                <motion.span className="text-small-margin-650 mb-2 text-center font-bold drop-shadow-strong text-[13px] 4sm:text-[15px] 2lg:text-base">
                   {text === "Studia Licencjackie Socjologia" ? (
                     <>
                       <span className="hidden 2xl:inline">

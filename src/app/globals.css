@@ -90,9 +90,6 @@ body {
 }
 
 @media (max-height: 650px) {
-  .text-min-font-650 {
-    font-size: 0.875rem; /* Tailwind text-sm */
-  }
   .text-big-font-650 {
     font-size: 0.875rem; /* Tailwind text-sm */
   }
@@ -103,8 +100,7 @@ body {
     margin-bottom: 0.25rem; /* Tailwind mb-1 */
   }
   .responsive-padding-650 {
-    padding-top: 0.25rem;  /* Tailwind p-1 */
-    padding-bottom: 0.25rem; /* Tailwind p-1 */
+    padding: 0.25rem;  /* Tailwind p-1 */
   }
   .mb-64 {
     margin-bottom: 12rem; /* Tailwind spacing 48 */
@@ -147,15 +143,11 @@ body {
 }
 
 @media (max-height: 570px) {
-  .padding-min-570 {
-    padding-right: 0.25rem;  /* Tailwind p-1 */
-    padding-left: 0.25rem; /* Tailwind p-1 */
-  }
   .mb-64 {
-    margin-bottom: 11rem; /* Tailwind spacing 44 */
+    margin-bottom: 12rem; /* Tailwind spacing 44 */
   }
   .mt-64 {
-    margin-top: 11rem; /* Tailwind spacing 44 */
+    margin-top: 12rem; /* Tailwind spacing 44 */
   }
   .description-font-570 {
     font-size: 0.625rem; /* Tailwind text-[10px] */
@@ -172,6 +164,32 @@ body {
   .gallery-description-font-570 {
     font-size: 0.875rem; /* Tailwind text-sm */
   }  
+}
+
+@media (max-height: 550px) and (max-width: 1100px) {
+  .img-header-size-550 {
+    width: 120px;
+    height: 120px; 
+  }
+  .img-header-margin-550 {
+    margin-right: 0rem; /* Tailwind mr-8 */
+  }
+  .title-header-font-550 {
+    font-size: 2rem; /* Tailwind text-[32px] */
+  }
+  .subtitle-header-font-550 {
+    font-size: 1.05rem; /* Tailwind  */
+  }
+  .gallery-description-font-550 {
+    font-size: 0.688rem; /* Tailwind text-[11px] */
+  }  
+  .gallery-content-height-550 {
+    height: 6rem; /* Tailwind h-24 */
+  }
+  :root {
+    --gallery-base-size: 6rem;
+    --gallery-hover-size: 12rem;
+  }
 }
 
 @media (min-height: 569px) and (max-height: 625px) and (min-width: 980px) and (max-width: 1100px) {

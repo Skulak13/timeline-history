@@ -54,6 +54,24 @@ const events: TimelineEventData[] = [
         url: "/images/event-images/usa3.jpg",
         // Dla tego obrazu nie definiujemy caption – napis się nie wyświetli
       },
+      {
+        url: "/images/event-images/usa4.jpg",
+        caption:
+          "Wahadłowiec i ślady po wejściu w atmosferę... Wywołały dreszcze i pobudziły wyobraźnię.",
+        captionPosition: "bottom",
+      },
+      {
+        url: "/images/event-images/usa5.jpg",
+        caption:
+          "Potrzeba było trochę szaleństwa i odwagi pracując z niedźwiedziami.",
+        captionPosition: "bottom",
+      },
+      {
+        url: "/images/event-images/usa6.jpg",
+        caption:
+          "Dworzec główny Salt Lake City - logistyka przejazdu na wschód była czasem wymagająca.",
+        captionPosition: "bottom",
+      },
     ],
   },
   {
