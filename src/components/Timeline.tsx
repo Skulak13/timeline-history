@@ -42,34 +42,31 @@ const events: TimelineEventData[] = [
     timelineGalleryImages: [
       {
         url: "/images/event-images/usa1.jpg",
-        caption: "Plaża w USA",
+        caption:
+          "Wahadłowiec i ślady po wejściu w atmosferę... Wywołuje dreszcze i wzbudza wyobraźnię.",
         captionPosition: "bottom",
       },
       {
         url: "/images/event-images/usa2.jpg",
-        caption: "Nowoczesne miasto",
+        caption:
+          "Doiwiedzieć sie jak powstawały ulubione filmy to pobudza kreatywnosć.",
         captionPosition: "top",
       },
       {
         url: "/images/event-images/usa3.jpg",
-        // Dla tego obrazu nie definiujemy caption – napis się nie wyświetli
+        caption: "100 mil rowerem przez góry i pustynię - Wyzwanie! Przygoda!",
+        captionPosition: "top",
       },
       {
         url: "/images/event-images/usa4.jpg",
-        caption:
-          "Wahadłowiec i ślady po wejściu w atmosferę... Wywołały dreszcze i pobudziły wyobraźnię.",
-        captionPosition: "bottom",
-      },
-      {
-        url: "/images/event-images/usa5.jpg",
         caption:
           "Potrzeba było trochę szaleństwa i odwagi pracując z niedźwiedziami.",
         captionPosition: "bottom",
       },
       {
-        url: "/images/event-images/usa6.jpg",
+        url: "/images/event-images/usa5.jpg",
         caption:
-          "Dworzec główny Salt Lake City - logistyka przejazdu na wschód była czasem wymagająca.",
+          "Dworzec kolejowy Salt Lake City - logistyka przejazdu na wschód była czasem wymagająca.",
         captionPosition: "bottom",
       },
     ],
@@ -79,15 +76,31 @@ const events: TimelineEventData[] = [
     description:
       "Po powrocie zacząłem uczyć się programowania. Zauważyłem, że doświadczenia w HR, udana rekrutacja nie dawała w najmniejszym stopniu takiej satysfakcji jak dobrze napisany kod. Wróciłem do pracy jako kurier, żeby w wolnym czasie się uczyć. Frontend okazał się słusznym wyborem na start. HTML, CSS okazał się dobrym wstępem do samodzielnej nauki, która motywowała i nie pozwoliła mi się zrazić. Gdy poznałem Javascript i React, czułem się gotowy na dalszy krok.",
     position: "bottom",
-    imageUrl: "/images/event-images/UG_Photo.jpg",
     iconType: "work",
+    timelineGalleryImages: [
+      {
+        url: "/images/event-images/work1.jpg",
+        caption: "Początki... dzisiaj react, zaraz backend.",
+        captionPosition: "bottom",
+      },
+      {
+        url: "/images/event-images/work2.jpg",
+        caption: "Czasem trzeba było koordynować pracę w zespole.",
+        captionPosition: "bottom",
+      },
+      {
+        url: "/images/event-images/work3.jpg",
+        caption: "Czasem trzeba było być wytrwałym.",
+        captionPosition: "top",
+      },
+    ],
   },
   {
     text: "Pierwszy projekt aplikacji.",
     description:
       "Gdy pierwszy raz zobaczyłem prawdziwy, złożony projekt aplikacji, byłem przerażony. Wydawało mi się, że plików jest więcej niż linijek kodu napisanych w jakimkolwiek moim projekcie. Odkrywanie, że pomału wszystko jest dla mnie zrozumiałe pchało mnie do przodu. Poznałem, jak unikać magicznych liczb, jak działa code review na githubie i jakie są dobre praktyki programistyczne. Obecnie wdrażam się w Node.js przygotowując się do nauki backendu.",
     position: "top",
-    imageUrl: "/images/event-images/UG_Photo.jpg",
+    imageUrl: "/images/event-images/Project_Photo.jpg",
     iconType: "project",
   },
 ];
