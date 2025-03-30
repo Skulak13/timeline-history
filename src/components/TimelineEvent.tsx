@@ -202,7 +202,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                     />
                     {displayedImageCaption && (
                       <div
-                        className="absolute left-0 w-full text-center caption-big-font-650 text-sm text-white px-2 py-1 bg-[#4CE0D2] opacity-0 group-hover:opacity-88 transition-opacity duration-300"
+                        className="absolute left-0 w-full text-center caption-big-font-650 text-sm text-white px-1 py-1 bg-[#4CE0D2] opacity-0 group-hover:opacity-88 transition-opacity duration-300"
                         style={
                           captionPosition === "top" ? { top: 0 } : { bottom: 0 }
                         }
