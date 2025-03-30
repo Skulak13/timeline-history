@@ -20,7 +20,7 @@ const events: TimelineEventData[] = [
   {
     text: "Studia Licencjackie Socjologia",
     description:
-      "Lubię analizować złożoność struktur i procesów, kształtujących społeczeństwa. Historia, technologia, polityka i kultura. To dziedziny, którymi się interesuję, a wszystkie one podlegają analizie socjologicznej. Na studiach szczególnie zgłębiałem się we wpływ komunizmu oraz współczesnych mediów na społeczeństwo polskie. Od ich ukończenia zmieniło się moje postrzeganie otaczającej rzeczywistości, dostrzegając w niej więcej szczegółów, struktur, przepływów i zależności.",
+      "Lubię analizować złożoność struktur i procesów kształtujących społeczeństwa. Historia, technologia, polityka i kultura. To dziedziny, którymi się interesuję, a wszystkie one podlegają analizie socjologicznej. Na studiach szczególnie zgłębiałem się we wpływ komunizmu oraz współczesnych mediów na społeczeństwo polskie. Od ich ukończenia zmieniło się moje postrzeganie otaczającej rzeczywistości, dostrzegając w niej więcej szczegółów, struktur, przepływów i zależności.",
     position: "top",
     imageUrl: "/images/event-images/UG_Photo.jpg",
     iconType: "education",
@@ -28,7 +28,7 @@ const events: TimelineEventData[] = [
   {
     text: "Studia Magisterskie Psychologia",
     description:
-      "Podczas studiów socjologicznych podczas zajęć z psychologii społecznej, profesor zasugerowała mi ten kierunek. Stanowiła ona kontynuację i dalsze pogłębianie moich zainteresowań. Psychologia poznawcza pozwoliła mi lepiej zrozumieć, jak ludzie odbierają i przetwarzają informacje pochodzące z zewnątrz i jak wpływa to na złożone struktury. O myśleniu szybkim i wolnym noblisty Daniela Kahnemana stała się moją najważniejszą lekturą, która pozwala mi kalibrować błędy poznawcze wpływające na logikę mojego myślenia.",
+      "Podczas studiów socjologicznych podczas zajęć z psychologii społecznej, profesor zasugerowała mi ten kierunek. Stanowiła ona kontynuacje i dalsze pogłębianie moich zainteresowań. Psychologia poznawcza pozwoliła mi lepiej zrozumieć, jak ludzie odbierają i przetwarzają informacje pochodzące z zewnątrz i jak wpływa to na złożone struktury. O myśleniu szybkim i wolnym noblisty Daniela Kahnemana stała się moją najważniejszą lekturą, która pozwala mi kalibrować błędy poznawcze wpływające na logikę mojego myślenia.",
     position: "bottom",
     imageUrl: "/images/event-images/SWPS_Photo.jpg",
     iconType: "education",

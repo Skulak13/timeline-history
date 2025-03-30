@@ -13,7 +13,7 @@ const Header: React.FC<HeaderProps> = ({ imageUrl, title, subtitle }) => {
     <motion.div
       initial={{ opacity: 0, x: -50 }}
       animate={{ opacity: 1, x: 0 }}
-      transition={{ duration: 0.8, ease: "easeOut" }}
+      transition={{ duration: 1, ease: "easeOut" }}
       className="fixed top-0 left-0 header-margin-w-1024 header-margin-650 m-8 flex items-start"
     >
       <Image
