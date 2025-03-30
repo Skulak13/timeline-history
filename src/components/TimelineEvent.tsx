@@ -202,7 +202,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                     />
                     {displayedImageCaption && (
                       <div
-                        className="absolute left-0 w-full text-center text-sm text-white px-2 py-1 bg-[#4CE0D2] opacity-0 group-hover:opacity-88 transition-opacity duration-300"
+                        className="absolute left-0 w-full text-center caption-big-font-650 text-sm text-white px-2 py-1 bg-[#4CE0D2] opacity-0 group-hover:opacity-88 transition-opacity duration-300"
                         style={
                           captionPosition === "top" ? { top: 0 } : { bottom: 0 }
                         }
@@ -210,24 +210,23 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                         {displayedImageCaption}
                       </div>
                     )}
+                    {timelineGalleryImages && (
+                      <>
+                        <button
+                          onClick={handlePrev}
+                          className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#4CE0D2] p-2 rounded-full opacity-70 hover:opacity-100 transition-opacity"
+                        >
+                          <FaArrowLeft className="text-white w-2 h-2" />
+                        </button>
+                        <button
+                          onClick={handleNext}
+                          className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#4CE0D2] p-2 rounded-full opacity-70 hover:opacity-100 transition-opacity"
+                        >
+                          <FaArrowRight className="text-white w-2 h-2" />
+                        </button>
+                      </>
+                    )}
                   </div>
-
-                  {timelineGalleryImages && (
-                    <>
-                      <button
-                        onClick={handlePrev}
-                        className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#4CE0D2] p-2 rounded-full opacity-70 hover:opacity-100 transition-opacity"
-                      >
-                        <FaArrowLeft className="text-white w-2 h-2" />
-                      </button>
-                      <button
-                        onClick={handleNext}
-                        className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#4CE0D2] p-2 rounded-full opacity-70 hover:opacity-100 transition-opacity"
-                      >
-                        <FaArrowRight className="text-white w-2 h-2" />
-                      </button>
-                    </>
-                  )}
                 </div>
                 <div
                   className="flex flex-col flex-1 pl-4"
@@ -254,7 +253,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                     ) : text === "Studia Licencjackie Socjologia" ? (
                       <>
                         <span className="hidden 3lg:inline">
-                          Studia magisterskie psychologia
+                          Studia licencjackie socjologia
                         </span>
                         <span className="3lg:hidden">Studia socjologia</span>
                       </>
@@ -265,7 +264,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   <div className="flex-1">
                     <HyphenatedText
                       text={description}
-                      className="leading-relaxed drop-shadow-strong description-font-570 description-font-626 description-font-650 description-font-770 text-[13px] 2lg:text-sm 3lg:text-[15px]"
+                      className="leading-relaxed drop-shadow-strong description-font-w-1024 description-font-570  description-font-626 description-font-650 description-font-770 text-[13px] 2lg:text-sm 3lg:text-[15px]"
                       style={{
                         ...textShadowStyle,
                         textAlign: "justify",

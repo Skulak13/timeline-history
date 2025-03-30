@@ -127,6 +127,9 @@ body {
   .title-header-font-650 {
     font-size: 2.5rem; /* Tailwind text-[40px] */
   }
+  .caption-big-font-650 {
+    font-size: 0.625rem; /* Tailwind text-[10px] */
+  }
   .gallery-content-height-650 {
     height: 7rem; /* Tailwind h-28 */
   }
@@ -208,6 +211,9 @@ body {
   }
   .subtitle-header-font-w-1024 {
     font-size: 1.25rem; /* Tailwind text-xl */
+  }
+  .description-font-w-1024 {
+    font-size: 0.625rem; /* Tailwind text-[10px] */
   }
   .gallery-description-w-1024 {
     font-size: 0.75rem; /* Tailwind text-xm */

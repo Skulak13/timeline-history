@@ -79,7 +79,7 @@ const events: TimelineEventData[] = [
     iconType: "work",
     timelineGalleryImages: [
       {
-        url: "/images/event-images/work1.jpg",
+        url: "/images/event-images/work1.webp",
         caption: "Początki... dzisiaj react, zaraz backend.",
         captionPosition: "bottom",
       },
