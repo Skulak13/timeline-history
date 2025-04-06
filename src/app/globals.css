@@ -37,20 +37,39 @@ html, body {
   }
 }
 
-@media (min-height: 850px) and (max-height: 1060px) and (min-width: 1380px) and (max-width: 1420px) {
-  .gallery-content-height-w-1400 {
-    height: 8rem; /* Tailwind h-32 */
-  }
-  :root {
-    --gallery-base-size: 8rem;
-    --gallery-hover-size: 16rem;
-  }
-}
-
 body {
   color: var(--foreground);
   background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+.responsive-padding {
+  padding: 1rem;  /* Tailwind p-4 */
+} 
+
+.text-big-font {
+  font-size: 1.063rem; /* Tailwind text-[17px] */
+}
+
+.text-big-margin {
+  margin-bottom: 0.5rem; /* Tailwind mb-2 */
+}
+
+.description-font {
+  font-size: 0.813rem; /* Tailwind text-[13px] */
+}
+
+.gallery-margin {
+  margin-left: 1rem; /* Tailwind ml-4 */
+  margin-bottom: 1.25rem; /* Tailwind mb-5 */
+}
+
+.gallery-description-font {
+  font-size: 1.125rem; /* Tailwind text-lg */
+}
+
+.gallery-content-height {
+  height: 9rem; /* Tailwind h-36 */
 }
 
 /* Media queries dodane na końcu globals.css */
@@ -61,26 +80,25 @@ body {
   .mt-64 {
     margin-top: 14rem; /* Tailwind spacing 56 */
   }
-  .responsive-padding-770 {
-    padding-top: 0.5rem;  /* Tailwind p-2 */
-    padding-bottom: 0.5rem; /* Tailwind p-2 */
+  .responsive-padding {
+    padding-block: 0.5rem;  /* Tailwind p-2 */
   }
-  .text-big-font-770 {
+  .text-big-font {
     font-size: 1rem; /* Tailwind text-base */
   }
-  .text-big-margin-770 {
+  .text-big-margin {
     margin-bottom: 0.25rem; /* Tailwind mb-1 */
   }
-  .description-font-770 {
-    font-size: 0.813rem; /* Tailwind text-[13px] to jest do Timeline musisz to potem pozamieniać*/
+  .description-font {
+    font-size: 0.813rem; /* Tailwind text-[13px] */
   }
-  .galllery-margin-770 {
+  .gallery-margin {
     margin-left: 2rem; /* Tailwind ml-8 */
   }
-  .gallery-description-font-770 {
+  .gallery-description-font {
     font-size: 1rem; /* Tailwind text-base */
   }
-  .gallery-content-height-770 {
+  .gallery-content-height {
     height: 8rem; /* Tailwind h-32 */
   }
   :root {
@@ -90,16 +108,16 @@ body {
 }
 
 @media (max-height: 650px) {
-  .text-big-font-650 {
+  .text-big-font {
     font-size: 0.875rem; /* Tailwind text-sm */
   }
-  .text-big-margin-650 {
+  .text-big-margin {
     margin-bottom: 0.125rem; /* Tailwind mb-[2px] */
   }
   .text-small-margin-650 {
     margin-bottom: 0.25rem; /* Tailwind mb-1 */
   }
-  .responsive-padding-650 {
+  .responsive-padding {
     padding: 0.25rem;  /* Tailwind p-1 */
   }
   .mb-64 {
@@ -111,7 +129,7 @@ body {
   .mt-2 {
     margin-top: 0.25rem; /* Tailwind spacing 1 */
   }
-  .description-font-650 {
+  .description-font {
     font-size: 0.75rem; /* Tailwind text-xs */
   }
   .header-margin-650 {
@@ -130,7 +148,7 @@ body {
   .caption-big-font-650 {
     font-size: 0.688rem; /* Tailwind text-[10px] */
   }
-  .gallery-content-height-650 {
+  .gallery-content-height {
     height: 7rem; /* Tailwind h-28 */
   }
   :root {
@@ -140,7 +158,7 @@ body {
 }
 
 @media (max-height: 626px) {
-  .description-font-626 {
+  .description-font {
     font-size: 0.688rem; /* Tailwind text-[11px] */
   }
 }
@@ -152,7 +170,7 @@ body {
   .mt-64 {
     margin-top: 12rem; /* Tailwind spacing 44 */
   }
-  .description-font-570 {
+  .description-font {
     font-size: 0.625rem; /* Tailwind text-[10px] */
   }
   .title-header-padding-570 {
@@ -161,10 +179,10 @@ body {
   .subtitle-header-font-570 {
     font-size: 1.35rem; /* Tailwind  */
   }
-  .gallery-margin-570 {
+  .gallery-margin {
     margin-bottom: 0.5rem; /* Tailwind mb-2 */
   }
-  .gallery-description-font-570 {
+  .gallery-description-font {
     font-size: 0.875rem; /* Tailwind text-sm */
   }  
 }
@@ -183,10 +201,10 @@ body {
   .subtitle-header-font-550 {
     font-size: 1.05rem; /* Tailwind  */
   }
-  .gallery-description-font-550 {
+  .gallery-description-font {
     font-size: 0.688rem; /* Tailwind text-[11px] */
   }  
-  .gallery-content-height-550 {
+  .gallery-content-height {
     height: 6rem; /* Tailwind h-24 */
   }
   :root {
@@ -212,13 +230,13 @@ body {
   .subtitle-header-font-w-1024 {
     font-size: 1.25rem; /* Tailwind text-xl */
   }
-  .description-font-w-1024 {
+  .description-font {
     font-size: 0.625rem; /* Tailwind text-[10px] */
   }
-  .gallery-description-w-1024 {
+  .gallery-description-font {
     font-size: 0.75rem; /* Tailwind text-xm */
   }
-  .gallery-content-height-w-1024 {
+  .gallery-content-height {
     height: 6rem; /* Tailwind h-24 */
   }  
   :root {
@@ -245,14 +263,24 @@ body {
   .subtitle-header-font-w-1280 {
     font-size: 1.5rem; /* np. Tailwind text-2xl */
   }
-  .gallery-description-w-1280 {
+  .gallery-description-font {
     font-size: 0.875rem; /* np. Tailwind text-sm */
   }
-  .gallery-content-height-w-1280 {
+  .gallery-content-height {
     height: 7rem; /* odpowiada Tailwind h-28 */
   }
   :root {
     --gallery-base-size: 7rem;
     --gallery-hover-size: 14rem;
+  }
+}
+
+@media (min-height: 850px) and (max-height: 1060px) and (min-width: 1380px) and (max-width: 1420px) {
+  .gallery-content-height {
+    height: 8rem; /* Tailwind h-32 */
+  }
+  :root {
+    --gallery-base-size: 8rem;
+    --gallery-hover-size: 16rem;
   }
 }

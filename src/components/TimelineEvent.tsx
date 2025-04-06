@@ -173,7 +173,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
               transformOrigin:
                 position === "top" ? "bottom center" : "top center",
             }}
-            className="p-4 responsive-padding-650 responsive-padding-770 border-2 border-[#4CE0D2]/40 rounded-lg shadow-lg flex flex-col items-center bg-[rgba(76,224,210,0.5)] backdrop-blur-sm transition-colors duration-300 text-[#1A1A1A]"
+            className="responsive-padding border-2 border-[#4CE0D2]/40 rounded-lg shadow-lg flex flex-col items-center bg-[rgba(76,224,210,0.5)] backdrop-blur-sm transition-colors duration-300 text-[#1A1A1A]"
             animate={{
               width: isHovered ? "34.2vw" : "12vw",
               height: "auto",
@@ -233,7 +233,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   style={{ width: "56.6%" }}
                 >
                   <motion.span
-                    className="text-center text-big-margin-650 text-big-margin-770 mb-2 font-bold text-big-font-650 text-big-font-770 text-[17px] 2lg:text-lg drop-shadow-strong"
+                    className="text-center text-big-margin font-bold text-big-font 2lg:text-lg drop-shadow-strong"
                     style={textShadowStyle}
                   >
                     {iconType === "usa" ? (
@@ -264,7 +264,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   <div className="flex-1">
                     <HyphenatedText
                       text={description}
-                      className="leading-relaxed drop-shadow-strong description-font-w-1024 description-font-570  description-font-626 description-font-650 description-font-770 text-[13px] 2lg:text-sm 3lg:text-[15px]"
+                      className="leading-relaxed drop-shadow-strong description-font 2lg:text-sm 3lg:text-[15px]"
                       style={{
                         ...textShadowStyle,
                         textAlign: "justify",
