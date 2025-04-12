@@ -293,7 +293,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                     transition={{ duration: 0.3 }}
                   />
                 )}
-                <motion.span className="text-small-margin-650 mb-2 text-center font-bold drop-shadow-strong text-[13px] 4sm:text-[15px] 2lg:text-base">
+                <motion.span className="text-small-margin mb-2 text-center font-bold drop-shadow-strong text-[13px] 4sm:text-[15px] 2lg:text-base">
                   {text === "Studia Licencjackie Socjologia" ? (
                     <>
                       <span className="hidden 2xl:inline">
