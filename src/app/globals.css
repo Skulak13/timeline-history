@@ -8,8 +8,6 @@ html, body {
 @import "tailwindcss";
 
 @theme {
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
 
     /* Moje definicje breakpointów */
     --breakpoint-3sm: 65.5rem;     /* Nowy breakpoint 1048px */
@@ -24,22 +22,11 @@ html, body {
 }
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
   --gallery-base-size: 9rem;
   --gallery-hover-size: 18rem;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
 }
 
@@ -173,10 +160,10 @@ body {
   .description-font {
     font-size: 0.625rem; /* Tailwind text-[10px] */
   }
-  .title-header-padding-570 {
+  .title-header-padding {
     padding-bottom: 0.5rem; /* Tailwind pb-2 */
   }
-  .subtitle-header-font-570 {
+  .subtitle-header-font {
     font-size: 1.35rem; /* Tailwind  */
   }
   .gallery-margin {
@@ -198,7 +185,7 @@ body {
   .title-header-font {
     font-size: 2rem; /* Tailwind text-[32px] */
   }
-  .subtitle-header-font-550 {
+  .subtitle-header-font {
     font-size: 1.05rem; /* Tailwind  */
   }
   .gallery-description-font {
@@ -224,10 +211,10 @@ body {
   .img-header-margin {
     margin-right: 0.25rem; /* Tailwind mr-1 */
   }
-  .title-header-padding-1024 {
+  .title-header-padding {
     padding-bottom: 0.5rem; /* Tailwind pb-2 */
   }
-  .subtitle-header-font-w-1024 {
+  .subtitle-header-font {
     font-size: 1.25rem; /* Tailwind text-xl */
   }
   .description-font {
@@ -247,21 +234,12 @@ body {
 
 /* Dodane specyficzne media queries dla rozdzielczości 1280x1024 */
 @media (min-width: 1260px) and (max-width: 1300px) and (min-height: 1000px) and (max-height: 1050px) {
-  .header-margin-w-1280 {
-    margin: 1rem; /* np. Tailwind m-4 */
-  }
   .img-header-size {
     width: 180px;
     height: 180px;
   }
   .img-header-margin {
     margin-right: 0.5rem; /* np. Tailwind mr-2 */
-  }
-  .title-header-padding-1280 {
-    padding-bottom: 0.5rem; /* np. Tailwind pb-2 */
-  }
-  .subtitle-header-font-w-1280 {
-    font-size: 1.5rem; /* np. Tailwind text-2xl */
   }
   .gallery-description-font {
     font-size: 0.875rem; /* np. Tailwind text-sm */

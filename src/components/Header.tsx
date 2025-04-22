@@ -25,7 +25,7 @@ const Header: React.FC<HeaderProps> = ({ imageUrl, title, subtitle }) => {
       />
       <div className="flex flex-col">
         <h1
-          className="title-header-font text-5xl font-bold title-header-padding-570 title-header-padding-1024  p-4 rounded-full inline-block"
+          className="title-header-font text-5xl font-bold title-header-padding p-4 rounded-full inline-block"
           style={{
             background: "linear-gradient(45deg, #FF5F6D, #FFC371)",
             WebkitBackgroundClip: "text",
@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ imageUrl, title, subtitle }) => {
         >
           {title}
         </h1>
-        <h2 className="subtitle-header-font-550 subtitle-header-font-570 subtitle-header-font-w-1024 text-2xl text-gray-300 pl-6">
+        <h2 className="subtitle-header-font text-2xl text-gray-300 pl-6">
           {subtitle}
         </h2>
       </div>
