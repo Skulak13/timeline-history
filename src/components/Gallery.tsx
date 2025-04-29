@@ -6,6 +6,10 @@ import { motion, AnimatePresence } from "framer-motion";
 
 interface GalleryProps {
   galleryImageUrl: string;
+  activeElement: { source: "timeline" | "gallery"; index: number } | null;
+  setActiveElement: (
+    element: { source: "timeline" | "gallery"; index: number } | null
+  ) => void;
 }
 
 interface ImageGalleryItem {
@@ -21,7 +25,11 @@ interface TextGalleryItem {
 
 type GalleryItem = ImageGalleryItem | TextGalleryItem;
 
-const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl }) => {
+const Gallery: React.FC<GalleryProps> = ({
+  galleryImageUrl,
+  activeElement,
+  setActiveElement,
+}) => {
   const [isGalleryOpen, setIsGalleryOpen] = useState(false);
 
   const galleryItems: GalleryItem[] = [
@@ -69,7 +77,34 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl }) => {
   ];
 
   const handleToggleGallery = () => {
-    setIsGalleryOpen(!isGalleryOpen);
+    setIsGalleryOpen((prev) => !prev);
+  };
+
+  // ====== 1. Zamiast mouse/touch - obsługa Pointer Events ======
+  const handlePointerEnter = (index: number, e: React.PointerEvent) => {
+    if (e.pointerType === "mouse") {
+      setActiveElement({ source: "gallery", index });
+    }
+  };
+
+  const handlePointerLeave = (e: React.PointerEvent) => {
+    if (e.pointerType === "mouse") {
+      setActiveElement(null);
+    }
+  };
+
+  const handlePointerUp = (index: number, e: React.PointerEvent) => {
+    if (e.pointerType === "touch") {
+      e.stopPropagation();
+      // toggle: otwórz/zmknij wybrane zdjęcie
+      const isActive =
+        activeElement?.source === "gallery" && activeElement.index === index;
+      if (isActive) {
+        setActiveElement(null);
+      } else {
+        setActiveElement({ source: "gallery", index });
+      }
+    }
   };
 
   const itemVariants = {
@@ -173,7 +208,16 @@ const Gallery: React.FC<GalleryProps> = ({ galleryImageUrl }) => {
                         style={{ transformOrigin: "left bottom" }}
                         variants={hoverVariants}
                         initial="rest"
-                        whileHover="hover"
+                        animate={
+                          activeElement?.source === "gallery" &&
+                          activeElement.index === index
+                            ? "hover"
+                            : "rest"
+                        }
+                        // ====== 2. Pointer Events na image container ======
+                        onPointerEnter={(e) => handlePointerEnter(index, e)}
+                        onPointerLeave={handlePointerLeave}
+                        onPointerUp={(e) => handlePointerUp(index, e)}
                         layout
                       >
                         <motion.div

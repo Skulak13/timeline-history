@@ -23,6 +23,11 @@ interface TimelineEventProps {
   imageUrl?: string;
   iconType: "education" | "usa" | "work" | "project";
   timelineGalleryImages?: GalleryImage[];
+  activeElement: { source: "timeline" | "gallery"; index: number } | null;
+  setActiveElement: (
+    element: { source: "timeline" | "gallery"; index: number } | null
+  ) => void;
+  index: number;
 }
 
 // ====== NOWY HOOK: useViewportHeight ======
@@ -46,8 +51,8 @@ const useViewportHeight = () => {
 // Wykorzystujemy tablicę obiektów (breakpoints) do określenia wartości offsetu.
 const getOffsetByHeight = (height: number, position: "top" | "bottom") => {
   const breakpoints = [
-    { max: 570, offset: 50 },
     { max: 200, offset: 60 },
+    { max: 570, offset: 50 },
     { max: 710, offset: 70 },
     { max: Infinity, offset: 90 },
   ];
@@ -65,33 +70,53 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
   imageUrl,
   iconType,
   timelineGalleryImages,
+  activeElement,
+  setActiveElement,
+  index,
 }) => {
-  const [isHovered, setIsHovered] = useState(false);
-  const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  // Referencja do przechowywania timeouta dla opóźnionego efektu hovera.
   const hoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // ====== UŻYCIE NOWEGO HOOKA: pobranie aktualnej wysokości viewportu ======
   const viewportHeight = useViewportHeight();
-  // ====== UŻYCIE MAPY WARTOŚCI: obliczenie offsetu na podstawie wysokości i pozycji ======
   const offset = getOffsetByHeight(viewportHeight, position);
 
-  // Funkcje obsługujące efekt hover z opóźnieniem
-  const handleHoverStart = () => {
-    if (hoverTimeout.current) {
-      clearTimeout(hoverTimeout.current);
-      hoverTimeout.current = null;
+  const isActive =
+    activeElement?.source === "timeline" && activeElement.index === index;
+
+  // ====== 1. obsługa Pointer Events dla myszy i dotyku ======
+  // Mouse: hoverenter z natychmiastowym otwarciem, hoverleave z 150ms opóźnieniem zamknięcia
+  const handlePointerEnter = (e: React.PointerEvent) => {
+    if (e.pointerType === "mouse") {
+      // anuluj ewentualny timeout zamknięcia
+      if (hoverTimeout.current) {
+        clearTimeout(hoverTimeout.current);
+        hoverTimeout.current = null;
+      }
+      setActiveElement({ source: "timeline", index });
     }
-    setIsHovered(true);
   };
 
-  const handleHoverEnd = () => {
-    hoverTimeout.current = setTimeout(() => {
-      setIsHovered(false);
-    }, 150);
+  const handlePointerLeave = (e: React.PointerEvent) => {
+    if (e.pointerType === "mouse") {
+      // po opuszczeniu myszy opóźnienie, aby użytkownik mógł przejechać do ikony lub przycisków
+      hoverTimeout.current = setTimeout(() => {
+        setActiveElement(null);
+      }, 150);
+    }
   };
 
-  // Funkcja renderująca ikonę w zależności od typu
+  // Touch: toggle stanu po tapie (pointerUp)
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (e.pointerType === "touch") {
+      e.stopPropagation();
+      // toggle: jeśli jest aktywny, zamknij; jeśli nie, otwórz
+      if (isActive) {
+        setActiveElement(null);
+      } else {
+        setActiveElement({ source: "timeline", index });
+      }
+    }
+  };
+
   const renderIcon = () => {
     switch (iconType) {
       case "education":
@@ -106,6 +131,8 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
         return <FaGraduationCap className="text-white text-xl" />;
     }
   };
+
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
   // Funkcje obsługujące przyciski galerii
   const handlePrev = (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -148,18 +175,19 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       transition={{ duration: 1.2, ease: "easeOut" }}
       viewport={{ once: true }}
       className="relative flex flex-col items-center sm:mx-3.5 3lg:mx-3.5 3xl:mx-7"
-      style={{ zIndex: isHovered ? 1000 : 1 }}
+      style={{ zIndex: isActive ? 1000 : 1 }}
     >
       <div className="flex flex-col items-center">
         {/* Kółko z ikoną – efekt hover z opóźnieniem */}
         <motion.div
           className="absolute w-[3.84vw] h-[3.84vw] bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] rounded-full inset-y-0 my-auto flex items-center justify-center shadow-lg cursor-pointer"
           animate={{
-            scale: isHovered ? 1.2 : 1,
-            boxShadow: isHovered ? "0px 0px 15px rgba(0,0,0,0.5)" : "none",
+            scale: isActive ? 1.2 : 1,
+            boxShadow: isActive ? "0px 0px 15px rgba(0,0,0,0.5)" : "none",
           }}
-          onHoverStart={handleHoverStart}
-          onHoverEnd={handleHoverEnd}
+          onPointerEnter={handlePointerEnter}
+          onPointerLeave={handlePointerLeave}
+          onPointerUp={handlePointerUp}
         >
           {renderIcon()}
         </motion.div>
@@ -175,17 +203,18 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
             }}
             className="responsive-padding border-2 border-[#4CE0D2]/40 rounded-lg shadow-lg flex flex-col items-center bg-[rgba(76,224,210,0.5)] backdrop-blur-sm transition-colors duration-300 text-[#1A1A1A]"
             animate={{
-              width: isHovered ? "34.2vw" : "12vw",
+              width: isActive ? "34.2vw" : "12vw",
               height: "auto",
               // ====== UŻYCIE DYNAMICZNEGO OFFSETU ======
               // Jeśli blok jest hoverowany, animacja y przyjmuje wartość obliczoną na podstawie wysokości viewportu
-              y: isHovered ? offset : 0,
+              y: isActive ? offset : 0,
             }}
             transition={{ duration: 0.3 }}
-            onHoverStart={handleHoverStart}
-            onHoverEnd={handleHoverEnd}
+            onPointerEnter={handlePointerEnter}
+            onPointerLeave={handlePointerLeave}
+            onPointerUp={handlePointerUp}
           >
-            {isHovered ? (
+            {isActive ? (
               <div className="flex flex-row items-stretch">
                 <div className="relative" style={{ width: "35.1%" }}>
                   <div className="relative group h-full">

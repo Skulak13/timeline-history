@@ -105,7 +105,17 @@ const events: TimelineEventData[] = [
   },
 ];
 
-const Timeline: React.FC = () => {
+interface TimelineProps {
+  activeElement: { source: "timeline" | "gallery"; index: number } | null;
+  setActiveElement: (
+    element: { source: "timeline" | "gallery"; index: number } | null
+  ) => void;
+}
+
+const Timeline: React.FC<TimelineProps> = ({
+  activeElement,
+  setActiveElement,
+}) => {
   return (
     <div className="flex justify-center items-center h-screen overflow-x-hidden overflow-y-hidden">
       <div className="relative flex justify-center items-center w-4/5">
@@ -119,6 +129,9 @@ const Timeline: React.FC = () => {
             imageUrl={event.imageUrl}
             iconType={event.iconType}
             timelineGalleryImages={event.timelineGalleryImages}
+            activeElement={activeElement}
+            setActiveElement={setActiveElement}
+            index={index}
           />
         ))}
       </div>
