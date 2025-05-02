@@ -242,12 +242,14 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                     {timelineGalleryImages && (
                       <>
                         <button
+                          onPointerUp={(e) => e.stopPropagation()}
                           onClick={handlePrev}
                           className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#4CE0D2] p-2 rounded-full opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
                         >
                           <FaArrowLeft className="text-white w-2 h-2" />
                         </button>
                         <button
+                          onPointerUp={(e) => e.stopPropagation()}
                           onClick={handleNext}
                           className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#4CE0D2] p-2 rounded-full opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
                         >
