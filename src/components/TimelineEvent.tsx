@@ -30,6 +30,22 @@ interface TimelineEventProps {
   index: number;
 }
 
+// ====== DETEKCJA URZĄDZENIA DOTYKOWEGO ======
+// Sprawdzamy, czy użytkownik korzysta z ekranu dotykowego.
+const useIsTouchDevice = () => {
+  const [isTouchDevice, setIsTouchDevice] = useState(false);
+
+  useEffect(() => {
+    const mq = window.matchMedia("(pointer: coarse)");
+    setIsTouchDevice(mq.matches);
+    const handler = (e: MediaQueryListEvent) => setIsTouchDevice(e.matches);
+    mq.addEventListener("change", handler);
+    return () => mq.removeEventListener("change", handler);
+  }, []);
+
+  return isTouchDevice;
+};
+
 // ====== NOWY HOOK: useViewportHeight ======
 // Hook, który nasłuchuje zmian rozmiaru okna i zwraca aktualną wysokość viewportu.
 const useViewportHeight = () => {
@@ -75,9 +91,9 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
   index,
 }) => {
   const hoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
-
   const viewportHeight = useViewportHeight();
   const offset = getOffsetByHeight(viewportHeight, position);
+  const isTouchDevice = useIsTouchDevice();
 
   const isActive =
     activeElement?.source === "timeline" && activeElement.index === index;
@@ -134,13 +150,29 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
 
-  // Funkcje obsługujące przyciski galerii
+  // ====== STAN DO STEROWANIA WIDOCZNOŚCIĄ CAPTION ======
+  const [fadeCaption, setFadeCaption] = useState(false);
+  const captionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Funkcja resetująca timer dla caption – wywoływana przy zmianie obrazu lub otwarciu bloku
+  const resetCaptionTimer = () => {
+    if (captionTimerRef.current) clearTimeout(captionTimerRef.current);
+    setFadeCaption(false); // Caption natychmiast staje się widoczny
+
+    // Po 3 sekundach rozpoczyna się zanikanie
+    captionTimerRef.current = setTimeout(() => {
+      setFadeCaption(true);
+    }, 3000);
+  };
+
+  // ====== OBSŁUGA PRZYCISKÓW ZMIANY OBRAZU W GALERII ======
   const handlePrev = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     if (timelineGalleryImages) {
       setCurrentImageIndex((prevIndex) =>
         prevIndex === 0 ? timelineGalleryImages.length - 1 : prevIndex - 1
       );
+      if (isTouchDevice) resetCaptionTimer();
     }
   };
 
@@ -150,6 +182,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       setCurrentImageIndex(
         (prevIndex) => (prevIndex + 1) % timelineGalleryImages.length
       );
+      if (isTouchDevice) resetCaptionTimer();
     }
   };
 
@@ -164,6 +197,17 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
   const captionPosition = timelineGalleryImages
     ? timelineGalleryImages[currentImageIndex].captionPosition || "bottom"
     : "bottom";
+
+  useEffect(() => {
+    if (isActive && isTouchDevice) {
+      resetCaptionTimer();
+    }
+    return () => {
+      if (captionTimerRef.current) {
+        clearTimeout(captionTimerRef.current);
+      }
+    };
+  }, [isActive, currentImageIndex, isTouchDevice]);
 
   // Styl textShadow dopasowany do tła bloku tekstowego.
   const textShadowStyle = { textShadow: "2px 2px 4px rgba(76,224,210,0.5)" };
@@ -229,16 +273,39 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                       }}
                       transition={{ duration: 0.3 }}
                     />
-                    {displayedImageCaption && (
-                      <div
-                        className="absolute left-0 w-full text-center caption-big-font-650 text-sm text-white px-1 py-1 bg-[#4CE0D2] opacity-0 group-hover:opacity-88 transition-opacity duration-300"
-                        style={
-                          captionPosition === "top" ? { top: 0 } : { bottom: 0 }
-                        }
-                      >
-                        {displayedImageCaption}
-                      </div>
-                    )}
+                    {/* 
+                      CAPTION – RÓŻNE ZACHOWANIE DLA EKRANÓW DOTYKOWYCH  
+                      Tutaj sprawdzamy, czy mamy caption do wyświetlenia.
+                      Na urządzeniach dotykowych używamy motion.div sterowanego stanem (fadeCaption),
+                      natomiast na desktopie wykorzystujemy efekt hover z Tailwind (group-hover).
+                    */}
+                    {displayedImageCaption &&
+                      (isTouchDevice ? (
+                        <motion.div
+                          initial={{ opacity: 1 }}
+                          animate={{ opacity: fadeCaption ? 0 : 1 }}
+                          transition={{ duration: fadeCaption ? 2 : 0 }} // fade out trwa 2s, fade in jest natychmiastowy
+                          className="absolute left-0 w-full text-center caption-big-font-650 text-sm text-white px-1 py-1 bg-[#4CE0D2]"
+                          style={
+                            captionPosition === "top"
+                              ? { top: 0 }
+                              : { bottom: 0 }
+                          }
+                        >
+                          {displayedImageCaption}
+                        </motion.div>
+                      ) : (
+                        <div
+                          className="absolute left-0 w-full text-center caption-big-font-650 text-sm text-white px-1 py-1 bg-[#4CE0D2] opacity-0 group-hover:opacity-88 transition-opacity duration-300"
+                          style={
+                            captionPosition === "top"
+                              ? { top: 0 }
+                              : { bottom: 0 }
+                          }
+                        >
+                          {displayedImageCaption}
+                        </div>
+                      ))}
                     {timelineGalleryImages && (
                       <>
                         <button
