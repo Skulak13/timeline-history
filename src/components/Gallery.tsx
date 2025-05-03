@@ -161,7 +161,7 @@ const Gallery: React.FC<GalleryProps> = ({
           onClick={handleToggleGallery}
           className="flex flex-col items-center group cursor-pointer bg-transparent border-none"
         >
-          <div className="relative w-[109px] h-[109px] 3sm:w-[150px] 3sm:h-[150px] 4lg:w-[170px] 4lg:h-[170px]">
+          <div className="relative w-[90px] h-[90px] 2sm:w-[109px] 2sm:w-[109px] 2sm:h-[109px] 3sm:w-[150px] 3sm:h-[150px] 4lg:w-[170px] 4lg:h-[170px]">
             <Image
               src={galleryImageUrl}
               alt="Opis obrazu"
@@ -169,7 +169,7 @@ const Gallery: React.FC<GalleryProps> = ({
               className="object-cover group-hover:opacity-80"
             />
           </div>
-          <span className="text-gray-300 text-[15px] 3sm:text-xl mt-2 group-hover:underline">
+          <span className="text-gray-300 text-[12px] 2sm:text-[15px] 3sm:text-xl mt-2 group-hover:underline">
             Moje&nbsp;
             <br className="block 3sm:hidden" />
             zainteresowania

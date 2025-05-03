@@ -10,6 +10,7 @@ html, body {
 @theme {
 
     /* Moje definicje breakpointów */
+    --breakpoint-2sm: 50rem;     /* Nowy breakpoint 800px */
     --breakpoint-3sm: 65.5rem;     /* Nowy breakpoint 1048px */
     --breakpoint-4sm: 76rem;     /* Nowy breakpoint xs 1216px */
     --breakpoint-lg: 81rem;     /* Nowy breakpoint xs 1296px */
@@ -24,6 +25,7 @@ html, body {
 :root {
   --gallery-base-size: 9rem;
   --gallery-hover-size: 18rem;
+  --small-img-size: 64px;
 }
 
 body {
@@ -262,3 +264,63 @@ body {
     --gallery-hover-size: 16rem;
   }
 }
+
+/* Style dla wyświetlania komunikatu obracania ekranu */
+.landscape-content {
+  display: block;
+}
+.portrait-warning {
+  display: none;
+}
+
+@media only screen and (orientation: portrait) and (max-width: 768px) {
+  .landscape-content {
+    display: none;
+  }
+  .portrait-warning {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    inset: 0;
+    background-color: #000;
+    color: #fff;
+    z-index: 9999;
+  }
+}
+
+@media only screen and (orientation: landscape) and (max-width: 768px) {
+  .header-margin {
+    margin: 0.35rem; /* Tailwind m-2 */
+  }
+  .img-header-size {
+    width: 100px;
+    height: 100px; 
+  }
+  .title-header-font {
+    font-size: 1.5rem; /* Tailwind text-2xl */
+  }
+  .title-header-padding {
+    padding: 0.5rem; /* Tailwind pb-2 */
+  }
+  .subtitle-header-font {
+    font-size: 0.875rem; /* Tailwind text-sm */
+  }
+  .mb-64 {
+    margin-bottom: 8rem; /* Tailwind spacing 44 */
+  }
+  .mt-64 {
+    margin-top: 8rem; /* Tailwind spacing 44 */
+  }
+  .responsive-padding {
+    padding-inline: 0rem;
+  }
+  .gallery-margin {
+    margin-left: 0.875rem; /* Tailwind ml-3.5 */
+  }
+  :root {
+    --small-img-size: 32px;
+  }  
+}
+  

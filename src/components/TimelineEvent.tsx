@@ -218,7 +218,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="relative flex flex-col items-center sm:mx-3.5 3lg:mx-3.5 3xl:mx-7"
+      className="relative flex flex-col items-center sm:mx-2 2sm:mx-3.5 3xl:mx-7"
       style={{ zIndex: isActive ? 1000 : 1 }}
     >
       <div className="flex flex-col items-center">
@@ -379,7 +379,11 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                     src={displayedImageUrl}
                     alt="Galeria obrazów"
                     className="rounded-full object-cover mt-2"
-                    animate={{ width: 64, height: 64, borderRadius: "50%" }}
+                    animate={{
+                      width: "var(--small-img-size)",
+                      height: "var(--small-img-size)",
+                      borderRadius: "50%",
+                    }}
                     transition={{ duration: 0.3 }}
                   />
                 ) : (
@@ -387,11 +391,15 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                     src={imageUrl}
                     alt="Opis obrazu"
                     className="rounded-full object-cover mt-2"
-                    animate={{ width: 64, height: 64, borderRadius: "50%" }}
+                    animate={{
+                      width: "var(--small-img-size)",
+                      height: "var(--small-img-size)",
+                      borderRadius: "50%",
+                    }}
                     transition={{ duration: 0.3 }}
                   />
                 )}
-                <motion.span className="text-small-margin mb-2 text-center font-bold drop-shadow-strong text-[13px] 4sm:text-[15px] 2lg:text-base">
+                <motion.span className="text-small-margin mb-2 text-center font-bold drop-shadow-strong text-[10px] 2sm:text-[13px] 4sm:text-[15px] 2lg:text-base">
                   {text === "Studia Licencjackie Socjologia" ? (
                     <>
                       <span className="hidden 2xl:inline">
