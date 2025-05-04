@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Timeline from "@/components/Timeline";
 import Gallery from "@/components/Gallery";
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState } from "react";
 import Image from "next/image";
 
 export default function Page() {
@@ -12,27 +12,6 @@ export default function Page() {
     source: "timeline" | "gallery";
     index: number;
   } | null>(null);
-
-  const syncScrollWithOrientation = () => {
-    const isLandscape = window.matchMedia("(orientation: landscape)").matches;
-    document.documentElement.style.overflowY = isLandscape ? "auto" : "hidden";
-    document.body.style.overflowY = isLandscape ? "auto" : "hidden";
-  };
-
-  useEffect(() => {
-    // Na starcie zawsze blokujemy
-    document.documentElement.style.overflowY = "hidden";
-    document.body.style.overflowY = "hidden";
-
-    // Kiedy użytkownik zmieni orientację w trakcie korzystania
-    window.addEventListener("orientationchange", syncScrollWithOrientation);
-    return () => {
-      window.removeEventListener(
-        "orientationchange",
-        syncScrollWithOrientation
-      );
-    };
-  }, []);
 
   return (
     <>
@@ -42,9 +21,7 @@ export default function Page() {
           initial={{ opacity: 0, scale: 1.1 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          // Kiedy animacja się skończy, zsynchronizuj scroll (włączy go, jeśli wciąż jest landscape)
-          onAnimationComplete={syncScrollWithOrientation}
-          className="bg-cover bg-center min-h-screen overflow-hidden min-h-[100dvh]"
+          className="bg-cover bg-center min-h-screen overflow-hidden"
           style={{ backgroundImage: "url('/images/background-image.jpg')" }}
         >
           <Header
