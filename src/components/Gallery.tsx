@@ -222,7 +222,15 @@ const Gallery: React.FC<GalleryProps> = ({
                       >
                         <motion.div
                           className="w-full h-full"
+                          // Używamy whileHover dla ekranów z kursorem
                           whileHover={{ filter: "brightness(0.7)" }}
+                          // Na urządzeniach dotykowych, gdy element jest aktywny, ustawiamy ten sam efekt
+                          animate={
+                            activeElement?.source === "gallery" &&
+                            activeElement.index === index
+                              ? { filter: "brightness(0.7)" }
+                              : { filter: "brightness(1)" }
+                          }
                           transition={{ duration: 0.3 }}
                         >
                           <Image
