@@ -323,7 +323,15 @@ body {
   .gallery-margin {
     margin-left: 0.875rem; /* Tailwind ml-3.5 */
   }
+  .gallery-description-font {
+    font-size: 0.531rem; /* 8.496px*/
+  }
+  .gallery-content-height {
+    height: 4rem; /* Tailwind h-16 */
+  }
   :root {
+    --gallery-base-size: 4rem;
+    --gallery-hover-size: 8rem;
     --small-img-size: 32px;
   }  
 }

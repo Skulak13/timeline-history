@@ -185,7 +185,7 @@ const Gallery: React.FC<GalleryProps> = ({
               transition={{
                 duration: galleryItems.length * 0.1 + 0.5,
               }}
-              className="flex overflow-visible ml-2"
+              className="flex overflow-visible ml-1 2sm:ml-2"
               layout
             >
               {galleryItems.map((item, index) => {
@@ -195,7 +195,7 @@ const Gallery: React.FC<GalleryProps> = ({
                   return (
                     <motion.div
                       key={index}
-                      className="flex-shrink-0 mr-1.5 3sm:mr-2"
+                      className="flex-shrink-0 mr-1 2sm:mr-1.5 3sm:mr-2"
                       custom={customProps}
                       variants={itemVariants}
                       initial="hidden"
@@ -235,7 +235,7 @@ const Gallery: React.FC<GalleryProps> = ({
                           />
                         </motion.div>
                         <motion.div
-                          className="absolute inset-0 flex items-center justify-center text-white gallery-description-font font-bold pointer-events-none text-center p-4"
+                          className="absolute inset-0 flex items-center justify-center text-white gallery-description-font font-bold pointer-events-none text-center p-2 2sm:p-4"
                           variants={hoverTextVariants}
                         >
                           {item.description}
@@ -247,7 +247,7 @@ const Gallery: React.FC<GalleryProps> = ({
                   return (
                     <motion.div
                       key={index}
-                      className="w-[9.6rem] 3sm:w-[11.6rem] xl:w-[13.4rem] 3xl:w-[18.5rem] gallery-content-height bg-gray-800 flex items-center justify-center text-white text-center mr-2 flex-shrink-0 text-justify p-1 3sm:p-2 xl:p-4 text-[10px] 3sm:text-xs lg:text-[13px] xl:text-sm 3xl:text-base"
+                      className="w-[5.1rem] 2sm:w-[9.6rem] 3sm:w-[11.6rem] xl:w-[13.4rem] 3xl:w-[18.5rem] gallery-content-height bg-gray-800 flex items-center justify-center text-white text-center mr-2 flex-shrink-0 text-justify p-0.25 2sm:p-1 3sm:p-2 xl:p-4 text-[6px] 2sm:text-[10px] 3sm:text-xs lg:text-[13px] xl:text-sm 3xl:text-base"
                       custom={customProps}
                       variants={itemVariants}
                       initial="hidden"
