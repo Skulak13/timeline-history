@@ -9,6 +9,7 @@ import {
   FaArrowRight,
 } from "react-icons/fa";
 import HyphenatedText from "./common/HyphenatedText";
+import useIsMobileLandscape from "@/hooks/useIsMobileLandscape";
 
 interface GalleryImage {
   url: string;
@@ -92,8 +93,16 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
 }) => {
   const hoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const viewportHeight = useViewportHeight();
-  const offset = getOffsetByHeight(viewportHeight, position);
   const isTouchDevice = useIsTouchDevice();
+
+  // NOWY HOOK – wykrycie mobile landscape
+  const isMobileLandscape = useIsMobileLandscape();
+
+  // Dla urządzeń mobilnych w orientacji landscape ustawiamy offset na 0
+  // (blok ma rozwijać się symetrycznie, czyli centralnie)
+  const effectiveY = isMobileLandscape
+    ? 0
+    : getOffsetByHeight(viewportHeight, position);
 
   const isActive =
     activeElement?.source === "timeline" && activeElement.index === index;
@@ -218,7 +227,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="relative flex flex-col items-center sm:mx-2 2sm:mx-3.5 3xl:mx-7"
+      className="relative flex flex-col items-center sm:mx-1.5 2sm:mx-3.5 3xl:mx-7"
       style={{ zIndex: isActive ? 1000 : 1 }}
     >
       <div className="flex flex-col items-center">
@@ -236,22 +245,37 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
           {renderIcon()}
         </motion.div>
 
-        {/* Kontener odstępów między eventami */}
-        <div className={position === "top" ? "mb-64" : "mt-64"}>
+        {/* Kontener odpowiadający za odstęp od osi czasu. Jeśli urządzenie jest mobile landscape oraz event jest aktywny,
+          usuwamy margines, by blok rozwijał się centralnie. */}
+        <div
+          className={
+            isMobileLandscape && isActive
+              ? "" // brak marginesu – centralne rozwinięcie
+              : position === "top"
+              ? "mb-64"
+              : "mt-64"
+          }
+        >
           {/* Interaktywny blok tekstowy – zmienia się przy hover */}
           <motion.div
             layout
             style={{
-              transformOrigin:
-                position === "top" ? "bottom center" : "top center",
+              // Ustawiamy transformOrigin centralnie dla mobile landscape
+              transformOrigin: isMobileLandscape
+                ? "center"
+                : position === "top"
+                ? "bottom center"
+                : "top center",
             }}
             className="responsive-padding border-2 border-[#4CE0D2]/40 rounded-lg shadow-lg flex flex-col items-center bg-[rgba(76,224,210,0.5)] backdrop-blur-sm transition-colors duration-300 text-[#1A1A1A]"
             animate={{
-              width: isActive ? "34.2vw" : "12vw",
+              width: isActive
+                ? isMobileLandscape
+                  ? "41.4vw" // Na urządzeniach mobilnych w orientacji landscape – 41.4vw
+                  : "34.2vw" // Na pozostałych urządzeniach – 34.2vw
+                : "12vw",
               height: "auto",
-              // ====== UŻYCIE DYNAMICZNEGO OFFSETU ======
-              // Jeśli blok jest hoverowany, animacja y przyjmuje wartość obliczoną na podstawie wysokości viewportu
-              y: isActive ? offset : 0,
+              y: isActive ? effectiveY : 0,
             }}
             transition={{ duration: 0.3 }}
             onPointerEnter={handlePointerEnter}
@@ -327,7 +351,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                   </div>
                 </div>
                 <div
-                  className="flex flex-col flex-1 pl-4"
+                  className="flex flex-col flex-1 pl-0.5 2sm:pl-4"
                   style={{ width: "56.6%" }}
                 >
                   <motion.span

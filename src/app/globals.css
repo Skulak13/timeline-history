@@ -319,6 +319,10 @@ body {
   }
   .responsive-padding {
     padding-inline: 0rem;
+    padding-block: 0.125rem;  /* Tailwind p-1 */
+  }
+  .text-big-margin {
+    margin-bottom: 0rem;
   }
   .gallery-margin {
     margin-left: 0.875rem; /* Tailwind ml-3.5 */
