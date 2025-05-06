@@ -284,7 +284,10 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
           >
             {isActive ? (
               <div className="flex flex-row items-stretch">
-                <div className="relative" style={{ width: "35.1%" }}>
+                <div
+                  className="relative"
+                  style={{ width: isMobileLandscape ? "52.1%" : "35.1%" }}
+                >
                   <div className="relative group h-full">
                     <motion.img
                       src={displayedImageUrl}
