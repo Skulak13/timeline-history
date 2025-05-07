@@ -227,7 +227,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       whileInView={{ opacity: 1, y: 0 }}
       transition={{ duration: 1.2, ease: "easeOut" }}
       viewport={{ once: true }}
-      className="relative flex flex-col items-center sm:mx-1.5 2sm:mx-3.5 3xl:mx-7"
+      className="relative flex flex-col items-center mx-1.5 2sm:mx-3.5 3xl:mx-7"
       style={{ zIndex: isActive ? 1000 : 1 }}
     >
       <div className="flex flex-col items-center">
@@ -426,7 +426,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                     transition={{ duration: 0.3 }}
                   />
                 )}
-                <motion.span className="text-small-margin mb-2 text-center font-bold drop-shadow-strong text-[10px] 2sm:text-[13px] 4sm:text-[15px] 2lg:text-base">
+                <motion.span className="text-small-margin mb-2 text-center font-bold drop-shadow-strong text-[10px] xs:text-[11px] 4sm:text-[15px] 2lg:text-base">
                   {text === "Studia Licencjackie Socjologia" ? (
                     <>
                       <span className="hidden 2xl:inline">

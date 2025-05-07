@@ -34,7 +34,7 @@ const Header: React.FC<HeaderProps> = ({ imageUrl, title, subtitle }) => {
         >
           {title}
         </h1>
-        <h2 className="subtitle-header-font text-2xl text-gray-300 pl-4 2sm:pl-6">
+        <h2 className="subtitle-header-font text-2xl text-gray-300 pl-4 xs:pl-6">
           {subtitle}
         </h2>
       </div>

@@ -161,7 +161,7 @@ const Gallery: React.FC<GalleryProps> = ({
           onClick={handleToggleGallery}
           className="flex flex-col items-center group cursor-pointer bg-transparent border-none"
         >
-          <div className="relative w-[90px] h-[90px] 2sm:w-[109px] 2sm:w-[109px] 2sm:h-[109px] 3sm:w-[150px] 3sm:h-[150px] 4lg:w-[170px] 4lg:h-[170px]">
+          <div className="relative w-[90px] h-[90px] xs:w-[109px] xs:w-[109px] xs:h-[109px] 3sm:w-[150px] 3sm:h-[150px] 4lg:w-[170px] 4lg:h-[170px]">
             <Image
               src={galleryImageUrl}
               alt="Opis obrazu"
@@ -169,7 +169,7 @@ const Gallery: React.FC<GalleryProps> = ({
               className="object-cover group-hover:opacity-80"
             />
           </div>
-          <span className="text-gray-300 text-[12px] 2sm:text-[15px] 3sm:text-xl mt-2 group-hover:underline">
+          <span className="text-gray-300 text-[12px] xs:text-[15px] 3sm:text-xl mt-2 group-hover:underline">
             Moje&nbsp;
             <br className="block 3sm:hidden" />
             zainteresowania
@@ -185,7 +185,7 @@ const Gallery: React.FC<GalleryProps> = ({
               transition={{
                 duration: galleryItems.length * 0.1 + 0.5,
               }}
-              className="flex overflow-visible ml-1 2sm:ml-2"
+              className="flex overflow-visible ml-1 xs:ml-2"
               layout
             >
               {galleryItems.map((item, index) => {
@@ -195,7 +195,7 @@ const Gallery: React.FC<GalleryProps> = ({
                   return (
                     <motion.div
                       key={index}
-                      className="flex-shrink-0 mr-1 2sm:mr-1.5 3sm:mr-2"
+                      className="flex-shrink-0 mr-1 xs:mr-1.5 3sm:mr-2"
                       custom={customProps}
                       variants={itemVariants}
                       initial="hidden"
@@ -243,7 +243,7 @@ const Gallery: React.FC<GalleryProps> = ({
                           />
                         </motion.div>
                         <motion.div
-                          className="absolute inset-0 flex items-center justify-center text-white gallery-description-font font-bold pointer-events-none text-center p-2 2sm:p-4"
+                          className="absolute inset-0 flex items-center justify-center text-white gallery-description-font font-bold pointer-events-none text-center p-2 xs:p-4"
                           variants={hoverTextVariants}
                         >
                           {item.description}
@@ -255,7 +255,7 @@ const Gallery: React.FC<GalleryProps> = ({
                   return (
                     <motion.div
                       key={index}
-                      className="w-[5.1rem] 2sm:w-[9.6rem] 3sm:w-[11.6rem] xl:w-[13.4rem] 3xl:w-[18.5rem] gallery-content-height bg-gray-800 flex items-center justify-center text-white text-center mr-2 flex-shrink-0 text-justify p-0.25 2sm:p-1 3sm:p-2 xl:p-4 text-[6px] 2sm:text-[10px] 3sm:text-xs lg:text-[13px] xl:text-sm 3xl:text-base"
+                      className="w-[5.1rem] 2sm:w-[9.6rem] 3sm:w-[11.6rem] xl:w-[13.4rem] 3xl:w-[18.5rem] gallery-content-height bg-gray-800 flex items-center justify-center text-white text-center mr-2 flex-shrink-0 text-justify p-0.25 xs:p-1 3sm:p-2 xl:p-4 text-[6px] 2sm:text-[10px] 3sm:text-xs lg:text-[13px] xl:text-sm 3xl:text-base"
                       custom={customProps}
                       variants={itemVariants}
                       initial="hidden"
