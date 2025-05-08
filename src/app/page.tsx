@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Timeline from "@/components/Timeline";
 import Gallery from "@/components/Gallery";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function Page() {
@@ -12,6 +12,19 @@ export default function Page() {
     source: "timeline" | "gallery";
     index: number;
   } | null>(null);
+
+  const [viewportHeight, setViewportHeight] = useState("100vh");
+
+  useEffect(() => {
+    const updateHeight = () => {
+      const vh = window.innerHeight * 0.01;
+      setViewportHeight(`${vh * 100}px`);
+    };
+
+    updateHeight();
+    window.addEventListener("resize", updateHeight);
+    return () => window.removeEventListener("resize", updateHeight);
+  }, []);
 
   return (
     <>
@@ -23,7 +36,7 @@ export default function Page() {
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="bg-cover bg-center overflow-hidden"
           style={{
-            height: "100dvh",
+            height: viewportHeight,
             backgroundImage: "url('/images/background-image.jpg')",
           }}
         >
