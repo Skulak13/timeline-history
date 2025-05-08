@@ -21,8 +21,11 @@ export default function Page() {
           initial={{ opacity: 0, scale: 1.1 }}
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
-          className="bg-cover bg-center min-h-screen overflow-hidden"
-          style={{ backgroundImage: "url('/images/background-image.jpg')" }}
+          className="bg-cover bg-center overflow-hidden"
+          style={{
+            height: "100dvh",
+            backgroundImage: "url('/images/background-image.jpg')",
+          }}
         >
           <Header
             imageUrl="/images/skulfancy.jpg"
