@@ -23,7 +23,7 @@ const Header: React.FC<HeaderProps> = ({ imageUrl, title, subtitle }) => {
         height={160}
         className="rounded-full object-cover img-header-margin mr-10 img-header-size"
       />
-      <div className="absolute flex-col">
+      <div className="flex flex-col">
         <h1
           className="title-header-font text-5xl font-bold title-header-padding p-4 rounded-full inline-block"
           style={{
