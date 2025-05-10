@@ -2,6 +2,7 @@ html, body {
   margin: 0;
   padding: 0;
   overflow-x: hidden;
+  overflow-y: hidden
 }
 
 @import "tailwindcss";
@@ -292,6 +293,10 @@ body {
 }
 
 @media only screen and (orientation: landscape) and (max-width: 940px) and (max-height: 520px) {
+  html,
+  body {
+    overflow-y: auto;
+  }
   .header-margin {
     margin: 0.35rem; /* Tailwind m-2 */
   }
