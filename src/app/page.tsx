@@ -4,7 +4,7 @@ import Header from "@/components/Header";
 import Timeline from "@/components/Timeline";
 import Gallery from "@/components/Gallery";
 import { motion } from "framer-motion";
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Image from "next/image";
 
 export default function Page() {
@@ -12,6 +12,23 @@ export default function Page() {
     source: "timeline" | "gallery";
     index: number;
   } | null>(null);
+
+  // Ustawienie overflow i przewinięcie 1px na mobilkach (Chrome fix)
+  useEffect(() => {
+    const isMobileLandscape =
+      window.innerWidth <= 940 && window.innerHeight <= 520;
+
+    if (isMobileLandscape) {
+      document.body.style.overflowY = "auto";
+
+      // Wymuszenie schowania paska adresu w Chrome mobilnym
+      setTimeout(() => {
+        window.scrollTo(0, 1);
+      }, 100);
+    } else {
+      document.body.style.overflowY = "hidden";
+    }
+  }, []);
 
   return (
     <>
