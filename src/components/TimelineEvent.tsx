@@ -10,6 +10,8 @@ import {
 } from "react-icons/fa";
 import HyphenatedText from "./common/HyphenatedText";
 import useIsMobileLandscape from "@/hooks/useIsMobileLandscape";
+import useIsTouchDevice from "@/hooks/useIsTouchDevice";
+import useViewportHeight from "@/hooks/useViewportHeight";
 
 interface GalleryImage {
   url: string;
@@ -30,38 +32,6 @@ interface TimelineEventProps {
   ) => void;
   index: number;
 }
-
-// ====== DETEKCJA URZĄDZENIA DOTYKOWEGO ======
-// Sprawdzamy, czy użytkownik korzysta z ekranu dotykowego.
-const useIsTouchDevice = () => {
-  const [isTouchDevice, setIsTouchDevice] = useState(false);
-
-  useEffect(() => {
-    const mq = window.matchMedia("(pointer: coarse)");
-    setIsTouchDevice(mq.matches);
-    const handler = (e: MediaQueryListEvent) => setIsTouchDevice(e.matches);
-    mq.addEventListener("change", handler);
-    return () => mq.removeEventListener("change", handler);
-  }, []);
-
-  return isTouchDevice;
-};
-
-// ====== NOWY HOOK: useViewportHeight ======
-// Hook, który nasłuchuje zmian rozmiaru okna i zwraca aktualną wysokość viewportu.
-const useViewportHeight = () => {
-  const [height, setHeight] = useState<number>(0);
-
-  useEffect(() => {
-    // Ustawienie wysokości po zamontowaniu komponentu
-    setHeight(window.innerHeight);
-    const handleResize = () => setHeight(window.innerHeight);
-    window.addEventListener("resize", handleResize);
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
-
-  return height;
-};
 
 // ====== NOWA FUNKCJA: getOffsetByHeight ======
 // Funkcja mapująca wysokość viewportu na wartość offsetu (y) dla animacji.
