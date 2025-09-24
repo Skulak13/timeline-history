@@ -35,37 +35,37 @@ const Gallery: React.FC<GalleryProps> = ({
   const galleryItems: GalleryItem[] = [
     {
       type: "image",
-      src: "/images/gallery/image1.jpg",
+      src: "/images/gallery/image1.webp",
       description:
         "Bardzo prawdopodobne, że byłem na koncercie Twojego ulubionego zespołu. Uwielbiam muzykę na żywo, a słucham bardzo różnej muzyki. Od metalu, po elektro, po muzykę symfoniczną.",
     },
     {
       type: "image",
-      src: "/images/gallery/image2.jpg",
+      src: "/images/gallery/image2.webp",
       description:
         "Nigdy więcej! Mówię za każdym razem, gdy wrócę z rejsu. Nie cierpię morza, ale przygoda powstaje najczęściej, gdy odważymy się przełamać jakieś nasze słabości...",
     },
     {
       type: "image",
-      src: "/images/gallery/image3.jpg",
+      src: "/images/gallery/image3.webp",
       description:
         "Kiedyś mówiło się 'wiadomości międzynarodowe', dzisiaj nazywa się to geopolityką. Niech będzie. Lubię wiedzieć, co się dzieje poza moim podwórkiem...",
     },
     {
       type: "image",
-      src: "/images/gallery/image4.jpg",
+      src: "/images/gallery/image4.webp",
       description:
         "Na rowerze można zobaczyć więcej niż z samochodu. Lubię długie wycieczki, zwłaszcza te poza miasto. Wtedy można poczuć prawdziwą wolność i wybuch endorfin.",
     },
     {
       type: "image",
-      src: "/images/gallery/image5.jpg",
+      src: "/images/gallery/image5.webp",
       description:
         "Lubię słuchać o nauce. Zwłaszcza o odkryciach w świecie fizyki i astronomii. Z każdym nowym odkryciem świat wydaje się tylko dziwniejszy...",
     },
     {
       type: "image",
-      src: "/images/gallery/image6.jpg",
+      src: "/images/gallery/image6.webp",
       description:
         "Jeden z dziwaków, którzy zarywają noc, żeby obejrzeć nudną galę rozdania Oscarów. Wiem, co jest grane i na co iść do kina.",
     },

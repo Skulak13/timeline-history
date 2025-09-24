@@ -22,10 +22,10 @@ export default function Page() {
           animate={{ opacity: 1, scale: 1 }}
           transition={{ duration: 0.8, ease: "easeOut" }}
           className="bg-cover bg-center min-h-screen overflow-hidden"
-          style={{ backgroundImage: "url('/images/background-image.jpg')" }}
+          style={{ backgroundImage: "url('/images/background-image.webp')" }}
         >
           <Header
-            imageUrl="/images/skulfancy.jpg"
+            imageUrl="/images/skulfancy.webp"
             title="The way to code!"
             subtitle="Tomek Skulski"
           />

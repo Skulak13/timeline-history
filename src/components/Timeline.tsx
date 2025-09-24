@@ -22,7 +22,7 @@ const events: TimelineEventData[] = [
     description:
       "Lubię analizować złożoność struktur i procesów kształtujących społeczeństwa. Historia, technologia, polityka i kultura. To dziedziny, którymi się interesuję, a wszystkie one podlegają analizie socjologicznej. Na studiach szczególnie zgłębiałem się we wpływ komunizmu oraz współczesnych mediów na społeczeństwo polskie. Od ich ukończenia zmieniło się moje postrzeganie otaczającej rzeczywistości, dostrzegając w niej więcej szczegółów, struktur, przepływów i zależności.",
     position: "top",
-    imageUrl: "/images/event-images/UG_Photo.jpg",
+    imageUrl: "/images/event-images/UG_Photo.webp",
     iconType: "education",
   },
   {
@@ -30,7 +30,7 @@ const events: TimelineEventData[] = [
     description:
       "Podczas studiów socjologicznych podczas zajęć z psychologii społecznej, profesor zasugerowała mi ten kierunek. Stanowiła ona kontynuacje i dalsze pogłębianie moich zainteresowań. Psychologia poznawcza pozwoliła mi lepiej zrozumieć, jak ludzie odbierają i przetwarzają informacje pochodzące z zewnątrz i jak wpływa to na złożone struktury. O myśleniu szybkim i wolnym noblisty Daniela Kahnemana stała się moją najważniejszą lekturą, która pozwala mi kalibrować błędy poznawcze wpływające na logikę mojego myślenia.",
     position: "bottom",
-    imageUrl: "/images/event-images/SWPS_Photo.jpg",
+    imageUrl: "/images/event-images/SWPS_Photo.webp",
     iconType: "education",
   },
   {
@@ -41,30 +41,30 @@ const events: TimelineEventData[] = [
     iconType: "usa",
     timelineGalleryImages: [
       {
-        url: "/images/event-images/usa1.jpg",
+        url: "/images/event-images/usa1.webp",
         caption:
           "Wahadłowiec i ślady po wejściu w atmosferę... Wywołuje dreszcze i wzbudza wyobraźnię.",
         captionPosition: "bottom",
       },
       {
-        url: "/images/event-images/usa2.jpg",
+        url: "/images/event-images/usa2.webp",
         caption:
           "Doiwiedzieć sie jak powstawały ulubione filmy to pobudza kreatywnosć.",
         captionPosition: "top",
       },
       {
-        url: "/images/event-images/usa3.jpg",
+        url: "/images/event-images/usa3.webp",
         caption: "100 mil rowerem przez góry i pustynię - Wyzwanie! Przygoda!",
         captionPosition: "top",
       },
       {
-        url: "/images/event-images/usa4.jpg",
+        url: "/images/event-images/usa4.webp",
         caption:
           "Potrzeba było trochę szaleństwa i odwagi pracując z niedźwiedziami.",
         captionPosition: "bottom",
       },
       {
-        url: "/images/event-images/usa5.jpg",
+        url: "/images/event-images/usa5.webp",
         caption:
           "Dworzec kolejowy Salt Lake City - logistyka przejazdu na wschód była czasem wymagająca.",
         captionPosition: "bottom",
@@ -84,12 +84,12 @@ const events: TimelineEventData[] = [
         captionPosition: "bottom",
       },
       {
-        url: "/images/event-images/work2.jpg",
+        url: "/images/event-images/work2.webp",
         caption: "Czasem trzeba było koordynować pracę w zespole.",
         captionPosition: "bottom",
       },
       {
-        url: "/images/event-images/work3.jpg",
+        url: "/images/event-images/work3.webp",
         caption: "Czasem trzeba było być wytrwałym.",
         captionPosition: "top",
       },
@@ -100,7 +100,7 @@ const events: TimelineEventData[] = [
     description:
       "Gdy pierwszy raz zobaczyłem prawdziwy, złożony projekt aplikacji, byłem przerażony. Wydawało mi się, że plików jest więcej niż linijek kodu napisanych w jakimkolwiek moim projekcie. Odkrywanie, że pomału wszystko jest dla mnie zrozumiałe pchało mnie do przodu. Poznałem, jak unikać magicznych liczb, jak działa code review na githubie i jakie są dobre praktyki programistyczne. Obecnie wdrażam się w Node.js przygotowując się do nauki backendu.",
     position: "top",
-    imageUrl: "/images/event-images/Project_Photo.jpg",
+    imageUrl: "/images/event-images/Project_Photo.webp",
     iconType: "project",
   },
 ];
