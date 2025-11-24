@@ -33,9 +33,6 @@ interface TimelineEventProps {
   index: number;
 }
 
-// ====== NOWA FUNKCJA: getOffsetByHeight ======
-// Funkcja mapująca wysokość viewportu na wartość offsetu (y) dla animacji.
-// Wykorzystujemy tablicę obiektów (breakpoints) do określenia wartości offsetu.
 const getOffsetByHeight = (height: number, position: "top" | "bottom") => {
   const breakpoints = [
     { max: 200, offset: 60 },
@@ -64,12 +61,8 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
   const hoverTimeout = useRef<ReturnType<typeof setTimeout> | null>(null);
   const viewportHeight = useViewportHeight();
   const isTouchDevice = useIsTouchDevice();
-
-  // NOWY HOOK – wykrycie mobile landscape
   const isMobileLandscape = useIsMobileLandscape();
 
-  // Dla urządzeń mobilnych w orientacji landscape ustawiamy offset na 0
-  // (blok ma rozwijać się symetrycznie, czyli centralnie)
   const effectiveY = isMobileLandscape
     ? 0
     : getOffsetByHeight(viewportHeight, position);
@@ -77,33 +70,38 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
   const isActive =
     activeElement?.source === "timeline" && activeElement.index === index;
 
-  // ====== 1. obsługa Pointer Events dla myszy i dotyku ======
-  // Mouse: hoverenter z natychmiastowym otwarciem, hoverleave z 150ms opóźnieniem zamknięcia
+  // Anuluje timer zamknięcia
+  const cancelTimer = () => {
+    if (hoverTimeout.current) {
+      clearTimeout(hoverTimeout.current);
+      hoverTimeout.current = null;
+    }
+  };
+
+  // Ustawia timer zamknięcia
+  const scheduleClose = () => {
+    cancelTimer();
+    hoverTimeout.current = setTimeout(() => {
+      setActiveElement(null);
+    }, 150);
+  };
+
   const handlePointerEnter = (e: React.PointerEvent) => {
     if (e.pointerType === "mouse") {
-      // anuluj ewentualny timeout zamknięcia
-      if (hoverTimeout.current) {
-        clearTimeout(hoverTimeout.current);
-        hoverTimeout.current = null;
-      }
+      cancelTimer();
       setActiveElement({ source: "timeline", index });
     }
   };
 
   const handlePointerLeave = (e: React.PointerEvent) => {
     if (e.pointerType === "mouse") {
-      // po opuszczeniu myszy opóźnienie, aby użytkownik mógł przejechać do ikony lub przycisków
-      hoverTimeout.current = setTimeout(() => {
-        setActiveElement(null);
-      }, 150);
+      scheduleClose();
     }
   };
 
-  // Touch: toggle stanu po tapie (pointerUp)
   const handlePointerUp = (e: React.PointerEvent) => {
     if (e.pointerType === "touch") {
       e.stopPropagation();
-      // toggle: jeśli jest aktywny, zamknij; jeśli nie, otwórz
       if (isActive) {
         setActiveElement(null);
       } else {
@@ -128,23 +126,17 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
   };
 
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-
-  // ====== STAN DO STEROWANIA WIDOCZNOŚCIĄ CAPTION ======
   const [fadeCaption, setFadeCaption] = useState(false);
   const captionTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
 
-  // Funkcja resetująca timer dla caption – wywoływana przy zmianie obrazu lub otwarciu bloku
   const resetCaptionTimer = () => {
     if (captionTimerRef.current) clearTimeout(captionTimerRef.current);
-    setFadeCaption(false); // Caption natychmiast staje się widoczny
-
-    // Po 3 sekundach rozpoczyna się zanikanie
+    setFadeCaption(false);
     captionTimerRef.current = setTimeout(() => {
       setFadeCaption(true);
     }, 3000);
   };
 
-  // ====== OBSŁUGA PRZYCISKÓW ZMIANY OBRAZU W GALERII ======
   const handlePrev = (e: React.MouseEvent<HTMLButtonElement>) => {
     e.stopPropagation();
     if (timelineGalleryImages) {
@@ -188,7 +180,6 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
     };
   }, [isActive, currentImageIndex, isTouchDevice]);
 
-  // Styl textShadow dopasowany do tła bloku tekstowego.
   const textShadowStyle = { textShadow: "2px 2px 4px rgba(76,224,210,0.5)" };
 
   return (
@@ -200,8 +191,33 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       className="relative flex flex-col items-center mx-1.5 2sm:mx-3.5 3xl:mx-7"
       style={{ zIndex: isActive ? 1000 : 1 }}
     >
+      {/* NIEWIDZIALNA STREFA ŁĄCZĄCA KÓŁKO I BLOK - anuluje timer zamknięcia */}
+      {isActive && !isMobileLandscape && (
+        <div
+          className="absolute pointer-events-auto"
+          onPointerEnter={cancelTimer}
+          style={{
+            // Pozycjonowanie strefy między kółkiem a blokiem
+            left: 0,
+            right: 0,
+            width: "100%",
+            ...(position === "top"
+              ? {
+                  // Dla top: strefa od bloku (który jest u góry) do kółka (które jest pośrodku)
+                  bottom: "50%",
+                  height: `${Math.abs(effectiveY)}px`,
+                }
+              : {
+                  // Dla bottom: strefa od kółka (które jest pośrodku) do bloku (który jest u dołu)
+                  top: "50%",
+                  height: `${Math.abs(effectiveY)}px`,
+                }),
+            zIndex: 999,
+          }}
+        />
+      )}
+
       <div className="flex flex-col items-center">
-        {/* Kółko z ikoną – efekt hover z opóźnieniem */}
         <motion.div
           className="absolute w-[3.84vw] h-[3.84vw] bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] rounded-full inset-y-0 my-auto flex items-center justify-center shadow-lg cursor-pointer"
           animate={{
@@ -211,38 +227,37 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
           onPointerUp={handlePointerUp}
+          style={{ zIndex: 1001 }}
         >
           {renderIcon()}
         </motion.div>
 
-        {/* Kontener odpowiadający za odstęp od osi czasu. Jeśli urządzenie jest mobile landscape oraz event jest aktywny,
-          usuwamy margines, by blok rozwijał się centralnie. */}
         <div
           className={
             isMobileLandscape && isActive
-              ? "" // brak marginesu – centralne rozwinięcie
+              ? ""
               : position === "top"
               ? "mb-64"
               : "mt-64"
           }
         >
-          {/* Interaktywny blok tekstowy – zmienia się przy hover */}
           <motion.div
             layout
             style={{
-              // Ustawiamy transformOrigin centralnie dla mobile landscape
               transformOrigin: isMobileLandscape
                 ? "center"
                 : position === "top"
                 ? "bottom center"
                 : "top center",
+              zIndex: 1001,
+              position: "relative",
             }}
             className="responsive-padding border-2 border-[#4CE0D2]/40 rounded-lg shadow-lg flex flex-col items-center bg-[rgba(76,224,210,0.5)] backdrop-blur-sm transition-colors duration-300 text-[#1A1A1A]"
             animate={{
               width: isActive
                 ? isMobileLandscape
-                  ? "41.4vw" // Na urządzeniach mobilnych w orientacji landscape – 41.4vw
-                  : "34.2vw" // Na pozostałych urządzeniach – 34.2vw
+                  ? "41.4vw"
+                  : "34.2vw"
                 : "12vw",
               height: "auto",
               y: isActive ? effectiveY : 0,
@@ -270,18 +285,12 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                       }}
                       transition={{ duration: 0.3 }}
                     />
-                    {/* 
-                      CAPTION – RÓŻNE ZACHOWANIE DLA EKRANÓW DOTYKOWYCH  
-                      Tutaj sprawdzamy, czy mamy caption do wyświetlenia.
-                      Na urządzeniach dotykowych używamy motion.div sterowanego stanem (fadeCaption),
-                      natomiast na desktopie wykorzystujemy efekt hover z Tailwind (group-hover).
-                    */}
                     {displayedImageCaption &&
                       (isTouchDevice ? (
                         <motion.div
                           initial={{ opacity: 1 }}
                           animate={{ opacity: fadeCaption ? 0 : 1 }}
-                          transition={{ duration: fadeCaption ? 2 : 0 }} // fade out trwa 2s, fade in jest natychmiastowy
+                          transition={{ duration: fadeCaption ? 2 : 0 }}
                           className="absolute left-0 w-full text-center caption-big-font-650 text-sm text-white px-1 py-1 bg-[#4CE0D2]"
                           style={
                             captionPosition === "top"
