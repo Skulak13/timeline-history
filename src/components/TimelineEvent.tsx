@@ -196,6 +196,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
         <div
           className="absolute pointer-events-auto"
           onPointerEnter={cancelTimer}
+          onPointerLeave={scheduleClose}
           style={{
             // Pozycjonowanie strefy między kółkiem a blokiem
             left: 0,
