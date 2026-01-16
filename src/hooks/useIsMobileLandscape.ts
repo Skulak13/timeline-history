@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { MOBILE_LANDSCAPE_BREAKPOINT } from "@/constants/viewport";
 
 /**
  * Hook wykrywający, czy urządzenie ma ekran mobilny w orientacji landscape.
- * Uznajemy, że urządzenie mobilne to takie, które ma szerokość do 940px oraz wysokość do 520px,
- * a orientacja landscape występuje wtedy, gdy window.innerWidth > window.innerHeight.
+ *
+ * Wartości progowe są zdefiniowane w src/constants/viewport.ts i zsynchronizowane
+ * z odpowiadającym media query w globals.css.
  */
 const useIsMobileLandscape = () => {
   const [isMobileLandscape, setIsMobileLandscape] = useState(false);
@@ -11,7 +13,9 @@ const useIsMobileLandscape = () => {
   useEffect(() => {
     const checkOrientation = () => {
       const isLandscape = window.innerWidth > window.innerHeight;
-      const isMobile = window.innerWidth <= 940 && window.innerHeight <= 520;
+      const isMobile =
+        window.innerWidth <= MOBILE_LANDSCAPE_BREAKPOINT.MAX_WIDTH &&
+        window.innerHeight <= MOBILE_LANDSCAPE_BREAKPOINT.MAX_HEIGHT;
       setIsMobileLandscape(isLandscape && isMobile);
     };
 
