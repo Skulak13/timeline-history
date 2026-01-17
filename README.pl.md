@@ -5,48 +5,63 @@
 ## Spis treści
 
 1. [Przegląd projektu](#przegląd-projektu)
-2. [Technologie](#technologie)
-3. [Instalacja i uruchomienie](#instalacja-i-uruchomienie)
-4. [Struktura projektu](#struktura-projektu)
-5. [Główne komponenty](#główne-komponenty)
-6. [Funkcjonalności](#funkcjonalności)
-7. [Responsive Design](#responsive-design)
-8. [Customowe hooki](#customowe-hooki)
-9. [Wnioski z projektu](#czego-nauczył-mnie-projekt-timeline-history---wnioski-z-projektu)
+2. [Funkcjonalności](#funkcjonalności)
+3. [Technologie](#technologie)
+4. [Instalacja i uruchomienie](#instalacja-i-uruchomienie)
+5. [Struktura projektu](#struktura-projektu)
+6. [Główne komponenty](#główne-komponenty)
+7. [🌟 Czego nauczył mnie projekt Timeline History](#-czego-nauczył-mnie-projekt-timeline-history---wnioski-z-projektu)
+8. [Responsive Design](#responsive-design)
+9. [Customowe hooki](#customowe-hooki)
 10. [Konfiguracja](#konfiguracja)
 11. [Optymalizacje](#optymalizacje)
 12. [Interakcje i dostępność](#interakcje-i-dostępność)
 13. [Stylowanie](#stylowanie)
+14. [Skrypty npm](#skrypty-npm)
 
 ---
 
 ## Przegląd projektu
 
-**Timeline History** to interaktywna aplikacja webowa przedstawiająca moją osobistą drogę do programowania. Projekt został stworzony jako portfolio prezentujące doświadczenia życiowe w atrakcyjny wizualnie i angażujący sposób, z naciskiem na UX/UI oraz płynne animacje. Stanowi również pierwszy, duży projekt React, służący do nauki oraz zrozumienia wyzwań jakie niesie ze sobą taki projekt. Aplikacja została zaprojektowana z myślą o responsywności i dostępności na różnych urządzeniach, ze szczególnym uwzględnieniem orientacji poziomej ekranu, która najlepiej prezentuje zawartość osi czasu.
+**Timeline History** to interaktywna aplikacja webowa przedstawiająca moją osobistą drogę do programowania. Projekt został stworzony jako portfolio prezentujące doświadczenia życiowe w atrakcyjny wizualnie i angażujący sposób, z naciskiem na UX/UI oraz płynne animacje.
 
-### Główne funkcjonalności:
+Stanowi również pierwszy, duży projekt React, służący do nauki oraz zrozumienia wyzwań jakie niesie ze sobą taki projekt. Aplikacja została zaprojektowana z myślą o responsywności i dostępności na różnych urządzeniach, ze szczególnym uwzględnieniem orientacji poziomej ekranu, która najlepiej prezentuje zawartość osi czasu.
 
-#### **1. Interaktywna oś czasu**
+---
+
+## Funkcjonalności
+
+### 🕐 Interaktywna oś czasu
 
 - Rozwijane wydarzenia z opisami i ilustracjami
-- Wybrane etapy zawierają minigalerie zdjęć sterowane strzałkami
-- Obsługa zarówno myszą, jak i dotykiem (Pointer Events API)
+- Wybrane etapy zawierają minigalerie zdjęć z nawigacją strzałkami
+- Obsługa zarówno myszą (hover), jak i dotykiem (tap)
+- Płynne animacje przejść między stanami
+- Responsywne pozycjonowanie względem wysokości viewportu
 
-#### **2. Galeria zainteresowań**
+### 🖼️ Galeria zainteresowań
 
 - Rozwijana horyzontalnie po kliknięciu dedykowanego przycisku
-- Obrazy reprezentujące moje hobby wraz z opisami widocznymi po najechaniu lub dotknięciu
-- Ostatni element galerii prezentuje krótkie podsumowanie mojego podejścia do życia
+- Obrazy reprezentujące hobby wraz z interaktywnymi opisami
+- Opisy widoczne po najechaniu (desktop) lub dotknięciu (mobile)
+- Element tekstowy podsumowujący podejście do życia
+- Staggered animation przy otwieraniu
 
-#### **3. Animacje**
+### 📱 Responsywność i dostępność
 
-- Płynne przejścia i efekty wejścia zrealizowane przy użyciu **Framer Motion**, zapewniające atrakcyjne wizualnie działanie
+- Dedykowane media queries dostosowane do charakteru layoutu
+- Komunikat o obróceniu urządzenia w orientacji pionowej
+- Automatyczne dzielenie wyrazów (hyphenation) dla poprawy czytelności
+- Pointer Events API dla ujednoliconej obsługi różnych urządzeń
+- Niewidzialna strefa zapobiegająca przypadkowemu zamknięciu elementów
 
-#### **4. Responsywność**
+### ✨ Animacje i performance
 
-- Dedykowane media queries dostosowują układ do różnych rozdzielczości i proporcji ekranu
-- W orientacji pionowej aplikacja wyświetla komunikat zachęcający do obrócenia urządzenia
-- Tekst wykorzystuje automatyczne dzielenie wyrazów (hyphenation) dla poprawy czytelności
+- Płynne przejścia realizowane przez Framer Motion
+- Hardware-accelerated transforms (GPU)
+- Warunkowe animacje zależne od typu urządzenia
+- Auto-fade podpisów na urządzeniach dotykowych (po 3 sekundach)
+- Optymalizacja obrazów (WebP, Next.js Image, lazy loading)
 
 ---
 
@@ -140,6 +155,8 @@ timeline-history/
 │   │   ├── Header.tsx
 │   │   ├── Timeline.tsx
 │   │   └── TimelineEvent.tsx
+│   ├── constants/
+│   │   └── viewport.ts
 │   └── hooks/
 │       ├── useIsMobileLandscape.ts
 │       ├── useIsTouchDevice.ts
@@ -198,7 +215,7 @@ Kontener dla wszystkich wydarzeń na osi czasu.
 interface TimelineProps {
   activeElement: { source: "timeline" | "gallery"; index: number } | null;
   setActiveElement: (
-    element: { source: "timeline" | "gallery"; index: number } | null
+    element: { source: "timeline" | "gallery"; index: number } | null,
   ) => void;
 }
 ```
@@ -246,7 +263,7 @@ interface TimelineEventProps {
   timelineGalleryImages?: GalleryImage[];
   activeElement: { source: "timeline" | "gallery"; index: number } | null;
   setActiveElement: (
-    element: { source: "timeline" | "gallery"; index: number } | null
+    element: { source: "timeline" | "gallery"; index: number } | null,
   ) => void;
   index: number;
 }
@@ -280,7 +297,7 @@ interface GalleryProps {
   galleryImageUrl: string;
   activeElement: { source: "timeline" | "gallery"; index: number } | null;
   setActiveElement: (
-    element: { source: "timeline" | "gallery"; index: number } | null
+    element: { source: "timeline" | "gallery"; index: number } | null,
   ) => void;
 }
 ```
@@ -335,9 +352,40 @@ interface HyphenatedTextProps {
 
 ---
 
-## Funkcjonalności
+## 🌟 Czego nauczył mnie projekt Timeline History - wnioski z projektu
 
-Szczegółowy opis głównych funkcjonalności znajduje się w sekcji [Przegląd projektu](#przegląd-projektu).
+**Timeline History** to mój pierwszy, większy samodzielny projekt React. Jako samouk projekt ten był dla mnie nie tylko ćwiczeniem programistycznym, ale przede wszystkim lekcją podejmowania decyzji projektowych, radzenia sobie z ograniczeniami interfejsu oraz świadomego wyboru kompromisów między estetyką, użytecznością i utrzymaniem kodu. Uczyłem się metodą prób i błędów, a to pozwoliło mi zrozumieć, jak decyzje techniczne wpływają na utrzymanie i rozwój aplikacji.
+
+Projekt dokumentuje popełnione przeze mnie błędy, których uświadomienie stanowi dla mnie lekcję i pozwala mi unikać ich w następnych projektach.
+
+### Kluczowe lekcje
+
+#### Lekcja 1: „Zrób, żeby działało" nie zawsze przyspiesza
+
+Początkowe skupienie się wyłącznie na funkcjonalności doprowadziło do narastania długu technicznego. Zduplikowana logika interakcji, style definiowane bezpośrednio w JSX oraz rozrastające się globalne style utrudniały dalszy rozwój projektu. Projekt uświadomił mi, że w aplikacjach interaktywnych decyzje architektoniczne warto podejmować możliwie wcześnie.
+
+#### Lekcja 2: Responsywność a charakter layoutu
+
+Poziomy layout osi czasu z rozwijanymi elementami pokazał mi, że nie każdy interfejs da się sensownie dopasować do każdej rozdzielczości. Nauczyłem się, że responsywność to również świadome ograniczanie wsparcia dla przypadków, gdzie doświadczenie użytkownika (UX) przestaje mieć sens. Projekt osi czasu narzucał ścisłe ograniczenia przestrzenne - klasyczne breakpointy nie zawsze są wystarczające, a próby obsługi wszystkich rozdzielczości mogą prowadzić do nadmiernej złożoności CSS.
+
+#### Lekcja 3: TypeScript wspiera rozwój aplikacji
+
+Typowanie pomogło mi kontrolować strukturę danych i szybciej identyfikować miejsca wymagające aktualizacji. TypeScript stał się dla mnie narzędziem wspierającym rozwój i refaktoryzację kodu, a nie tylko formalnym wymogiem.
+
+### Co zrobiłem dobrze
+
+Mimo popełnionych błędów, projekt zawiera rozwiązania, które świadomie zaprojektowałem i z których jestem zadowolony:
+
+- **Ujednolicona obsługa interakcji** - Pointer Events API dla myszy i dotyku eliminuje duplikację kodu dla różnych typów urządzeń
+- **Custom hooks** - wydzielanie logiki (`useViewportHeight`, `useIsTouchDevice`, `useIsMobileLandscape`) ułatwia testowanie i ponowne użycie
+- **Dostępność od początku** - uwzględnianie użytkowników dotykowych nie jako afterthought, ale jako integralną część projektu
+- **Optymalizacja zasobów** - świadome użycie WebP, Next.js Image oraz animacji przyjaznych GPU
+
+### Perspektywa po zakończeniu projektu
+
+Projekt ten uświadomił mi, że nawet w małych aplikacjach struktura i organizacja kodu mają znaczenie od samego początku. Dziś wiele decyzji podjąłbym szybciej i bardziej świadomie - szczególnie w kontekście wczesnego definiowania granic użyteczności interfejsu oraz akceptowania kompromisów wynikających z charakteru layoutu.
+
+Jednocześnie wiem, że bez tego projektu nie byłbym w stanie zrozumieć ograniczeń, z którymi realnie mierzy się interaktywny interfejs. Każdy senior developer zaczynał od takiego właśnie kodu. Różnica polega na tym, czy potrafi spojrzeć wstecz i nazwać swoje błędy.
 
 ---
 
@@ -437,11 +485,13 @@ const isTouchDevice: boolean = useIsTouchDevice();
 
 Identyfikuje urządzenia mobilne w orientacji poziomej na podstawie szerokości, wysokości i proporcji ekranu.
 
-**Kryteria:**
+**Kryteria wykrywania:**
 
-- `window.innerWidth <= 940px`
-- `window.innerHeight <= 520px`
-- `window.innerWidth > window.innerHeight` (landscape)
+- Szerokość ekranu ≤ 940px
+- Wysokość ekranu ≤ 520px
+- Orientacja landscape (szerokość > wysokość)
+
+Wartości progowe są zdefiniowane w `src/constants/viewport.ts` i zsynchronizowane z odpowiadającym media query w `globals.css`, eliminując duplikację i ryzyko niespójności.
 
 **Przykład użycia:**
 
@@ -453,43 +503,7 @@ const isMobileLandscape: boolean = useIsMobileLandscape();
 
 - Specjalne pozycjonowanie elementów `TimelineEvent` na małych ekranach w trybie poziomym
 - Dostosowanie layoutu dla lepszej czytelności i użyteczności
-
----
-
-## Czego nauczył mnie projekt Timeline History - wnioski z projektu
-
-**Timeline History** to mój pierwszy, większy samodzielny projekt React. Jako samouk projekt ten był dla mnie nie tylko ćwiczeniem programistycznym, ale przede wszystkim lekcją podejmowania decyzji projektowych, radzenia sobie z ograniczeniami interfejsu oraz świadomego wyboru kompromisów między estetyką, użytecznością i utrzymaniem kodu. Uczyłem się metodą prób i błędów, a to pozwoliło mi zrozumieć, jak decyzje techniczne wpływają na utrzymanie i rozwój aplikacji.
-
-Projekt dokumentuje popełnione przeze mnie błędy, których uświadomienie stanowi dla mnie lekcję i pozwala mi unikać ich w następnych projektach.
-
-### Kluczowe lekcje
-
-#### Lekcja 1: „Zrób, żeby działało" nie zawsze przyspiesza
-
-Początkowe skupienie się wyłącznie na funkcjonalności doprowadziło do narastania długu technicznego. Zduplikowana logika interakcji, style definiowane bezpośrednio w JSX oraz rozrastające się globalne style utrudniały dalszy rozwój projektu. Projekt uświadomił mi, że w aplikacjach interaktywnych decyzje architektoniczne warto podejmować możliwie wcześnie.
-
-#### Lekcja 2: Responsywność a charakter layoutu
-
-Poziomy layout osi czasu z rozwijanymi elementami pokazał mi, że nie każdy interfejs da się sensownie dopasować do każdej rozdzielczości. Nauczyłem się, że responsywność to również świadome ograniczanie wsparcia dla przypadków, gdzie doświadczenie użytkownika (UX) przestaje mieć sens. Projekt osi czasu narzucał ścisłe ograniczenia przestrzenne - klasyczne breakpointy nie zawsze są wystarczające, a próby obsługi wszystkich rozdzielczości mogą prowadzić do nadmiernej złożoności CSS.
-
-#### Lekcja 3: TypeScript wspiera rozwój aplikacji
-
-Typowanie pomogło mi kontrolować strukturę danych i szybciej identyfikować miejsca wymagające aktualizacji. TypeScript stał się dla mnie narzędziem wspierającym rozwój i refaktoryzację kodu, a nie tylko formalnym wymogiem.
-
-### Co zrobiłem dobrze
-
-Mimo popełnionych błędów, projekt zawiera rozwiązania, które świadomie zaprojektowałem i z których jestem zadowolony:
-
-- **Ujednolicona obsługa interakcji** - Pointer Events API dla myszy i dotyku eliminuje duplikację kodu dla różnych typów urządzeń
-- **Custom hooks** - wydzielanie logiki (`useViewportHeight`, `useIsTouchDevice`, `useIsMobileLandscape`) ułatwia testowanie i ponowne użycie
-- **Dostępność od początku** - uwzględnianie użytkowników dotykowych nie jako afterthought, ale jako integralną część projektu
-- **Optymalizacja zasobów** - świadome użycie WebP, Next.js Image oraz animacji przyjaznych GPU
-
-### Perspektywa po zakończeniu projektu
-
-Projekt ten uświadomił mi, że nawet w małych aplikacjach struktura i organizacja kodu mają znaczenie od samego początku. Dziś wiele decyzji podjąłbym szybciej i bardziej świadomie - szczególnie w kontekście wczesnego definiowania granic użyteczności interfejsu oraz akceptowania kompromisów wynikających z charakteru layoutu.
-
-Jednocześnie wiem, że bez tego projektu nie byłbym w stanie zrozumieć ograniczeń, z którymi realnie mierzy się interaktywny interfejs. Każdy senior developer zaczynał od takiego właśnie kodu. Różnica polega na tym, czy potrafi spojrzeć wstecz i nazwać swoje błędy.
+- Alternatywne offsety dla ograniczonej przestrzeni pionowej
 
 ---
 
