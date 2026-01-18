@@ -1,5 +1,7 @@
 # Timeline History - The Way to Code!
 
+> 🇬🇧 **[English version / Wersja angielska](README.md)**
+
 **Live demo:** [https://timeline-history-lilac.vercel.app/](https://timeline-history-lilac.vercel.app/)
 
 ## Spis treści

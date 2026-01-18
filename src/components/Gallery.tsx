@@ -161,7 +161,7 @@ const Gallery: React.FC<GalleryProps> = ({
           onClick={handleToggleGallery}
           className="flex flex-col items-center group cursor-pointer bg-transparent border-none"
         >
-          <div className="relative w-[90px] h-[90px] xs:w-[109px] xs:w-[109px] xs:h-[109px] 3sm:w-[150px] 3sm:h-[150px] 4lg:w-[170px] 4lg:h-[170px]">
+          <div className="relative w-[90px] h-[90px] xs:w-[109px] xs:h-[109px] 3sm:w-[150px] 3sm:h-[150px] 4lg:w-[170px] 4lg:h-[170px]">
             <Image
               src={galleryImageUrl}
               alt="Opis obrazu"
@@ -255,7 +255,7 @@ const Gallery: React.FC<GalleryProps> = ({
                   return (
                     <motion.div
                       key={index}
-                      className="w-[5.1rem] 2sm:w-[9.6rem] 3sm:w-[11.6rem] xl:w-[13.4rem] 3xl:w-[18.5rem] gallery-content-height bg-gray-800 flex items-center justify-center text-white text-center mr-2 flex-shrink-0 text-justify p-0.25 xs:p-1 3sm:p-2 xl:p-4 text-[6px] 2sm:text-[10px] 3sm:text-xs lg:text-[13px] xl:text-sm 3xl:text-base"
+                      className="w-[5.1rem] 2sm:w-[9.6rem] 3sm:w-[11.6rem] xl:w-[13.4rem] 3xl:w-[18.5rem] gallery-content-height bg-gray-800 flex items-center justify-center text-white text-center mr-2 flex-shrink-0 p-0.25 xs:p-1 3sm:p-2 xl:p-4 text-[6px] 2sm:text-[10px] 3sm:text-xs lg:text-[13px] xl:text-sm 3xl:text-base"
                       custom={customProps}
                       variants={itemVariants}
                       initial="hidden"
