@@ -1,8 +1,15 @@
 # Timeline History - The Way to Code!
 
-> 🇬🇧 **[English version / Wersja angielska](README.md)**
+**🚀 [Zobacz wersję Demo](https://timeline-history-lilac.vercel.app/)**
 
-**Live demo:** [https://timeline-history-lilac.vercel.app/](https://timeline-history-lilac.vercel.app/)
+<br>
+
+**Autor:** Tomek Skulski ([@Skulak13](https://github.com/Skulak13))  
+**Kontakt:** [LinkedIn](https://linkedin.com/in/tomasz-skulski) | [GitHub](https://github.com/Skulak13) | [Codewars](https://www.codewars.com/users/Skulak13)
+
+<br>
+
+> 🇬🇧 **[English version / Wersja angielska](README.md)**
 
 ## Spis treści
 
@@ -611,11 +618,7 @@ npm run lint    # sprawdza kod przy użyciu ESLint
 
 ## Licencja
 
-MIT
-
-## Autor
-
-Tomek Skulski ([@Skulak13](https://github.com/Skulak13))
+Ten projekt jest licencjonowany na **licencji MIT** - zobacz plik [LICENSE](LICENSE) dla szczegółów.
 
 ---
 
