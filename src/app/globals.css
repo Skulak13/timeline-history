@@ -63,7 +63,6 @@ body {
   height: 9rem; /* Tailwind h-36 */
 }
 
-/* Media queries dodane na końcu globals.css */
 @media (max-height: 770px) {
   .mb-64 {
     margin-bottom: 14rem; /* Tailwind spacing 56 */
@@ -275,7 +274,7 @@ body {
   display: none;
 }
 
-@media only screen and (orientation: portrait) and (max-width: 768px) {
+@media only screen and (orientation: portrait) and (max-width: 1024px) and (pointer: coarse) {
   .landscape-content {
     display: none;
   }
@@ -294,9 +293,9 @@ body {
 
 /* 
   Breakpoint zsynchronizowany z src/constants/viewport.ts
-  (MOBILE_LANDSCAPE_BREAKPOINT: 940px × 520px)
+  (MOBILE_LANDSCAPE_BREAKPOINT: 1130px × 780px)
 */
-@media only screen and (orientation: landscape) and (max-width: 940px) and (max-height: 520px) {
+@media only screen and (orientation: landscape) and (max-width: 1130px) and (max-height: 780px) and (pointer: coarse) {
   html,
   body {
     overflow-y: auto;

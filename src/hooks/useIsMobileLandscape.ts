@@ -11,12 +11,17 @@ const useIsMobileLandscape = () => {
   const [isMobileLandscape, setIsMobileLandscape] = useState(false);
 
   useEffect(() => {
+    const isTouchCapable = navigator.maxTouchPoints > 0;
+
     const checkOrientation = () => {
       const isLandscape = window.innerWidth > window.innerHeight;
-      const isMobile =
+      const isWithinSizeThreshold =
         window.innerWidth <= MOBILE_LANDSCAPE_BREAKPOINT.MAX_WIDTH &&
         window.innerHeight <= MOBILE_LANDSCAPE_BREAKPOINT.MAX_HEIGHT;
-      setIsMobileLandscape(isLandscape && isMobile);
+
+      setIsMobileLandscape(
+        isLandscape && isWithinSizeThreshold && isTouchCapable,
+      );
     };
 
     // Pierwsze sprawdzenie przy montowaniu
