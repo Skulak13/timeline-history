@@ -439,10 +439,10 @@ Custom breakpoints defined in `globals.css`:
 
 ### Screen Orientation
 
-On mobile devices in portrait orientation, the application displays a screen rotation prompt:
+On mobile devices and tablets in portrait orientation, the application displays a screen rotation prompt. The condition intentionally includes pointer: coarse to target only touch devices.
 
 ```css
-@media only screen and (orientation: portrait) and (max-width: 768px) {
+@media only screen and (orientation: portrait) and (max-width: 1024px) and (pointer: coarse) {
   .landscape-content {
     display: none;
   }
@@ -451,6 +451,20 @@ On mobile devices in portrait orientation, the application displays a screen rot
   }
 }
 ```
+
+The max-width threshold is set to 1024px to include tablets such as iPad Air (820px), Surface Pro 7 (912px), Asus Zenbook Fold (853px), and iPad Pro (1024px).
+
+### Small Viewport Landscape Layout
+
+When the viewport is too small for the desktop-style timeline layout - where expanded blocks float above and below the axis - the application switches to a centered layout where blocks stay on the axis.
+
+```css
+@media only screen and (orientation: landscape) and (max-width: 1130px) and (max-height: 780px) {
+  /* small viewport landscape styles */
+}
+```
+
+The thresholds `1130 x 780px` were extended to cover tablets such as iPad Mini in landscape (1024 x 768px) and Surface Duo in landscape (~1114 x 720px).
 
 ---
 
@@ -494,12 +508,12 @@ const isTouchDevice: boolean = useIsTouchDevice();
 
 ### 3. useIsMobileLandscape (`src/hooks/useIsMobileLandscape.ts`)
 
-Identifies mobile devices in landscape orientation based on width, height, and screen proportions.
+Detects whether the current viewport is too small for the desktop-style timeline layout in landscape orientation.
 
 **Detection criteria:**
 
-- Screen width ≤ 940px
-- Screen height ≤ 520px
+- Screen width ≤ 1130px
+- Screen height ≤ 780px
 - Landscape orientation (width > height)
 
 Threshold values are defined in `src/constants/viewport.ts` and synchronized with the corresponding media query in `globals.css`, eliminating duplication and risk of inconsistency.
@@ -512,7 +526,7 @@ const isMobileLandscape: boolean = useIsMobileLandscape();
 
 **Use cases:**
 
-- Special positioning of `TimelineEvent` elements on small screens in landscape mode
+- Positioning of `TimelineEvent` elements when the viewport is too small for the desktop layout - blocks remain centered on the axis instead of floating above/below it
 - Layout adaptation for better readability and usability
 - Alternative offsets for limited vertical space
 
