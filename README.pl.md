@@ -437,10 +437,10 @@ Customowe breakpointy zdefiniowane w `globals.css`:
 
 ### Orientacja ekranu
 
-Na urządzeniach mobilnych w orientacji pionowej aplikacja wyświetla komunikat zachęcający do obrócenia ekranu:
+Na urządzeniach mobilnych i tabletach w orientacji pionowej aplikacja wyświetla komunikat zachęcający do obrócenia ekranu. Warunek celowo zawiera `pointer: coarse`, aby obejmować wyłącznie urządzenia dotykowe.
 
 ```css
-@media only screen and (orientation: portrait) and (max-width: 768px) {
+@media only screen and (orientation: portrait) and (max-width: 1024px) and (pointer: coarse) {
   .landscape-content {
     display: none;
   }
@@ -449,6 +449,20 @@ Na urządzeniach mobilnych w orientacji pionowej aplikacja wyświetla komunikat 
   }
 }
 ```
+
+Próg `max-width` ustawiono na 1024px, aby objąć tablety takie jak iPad Air (820px), Surface Pro 7 (912px), Asus Zenbook Fold (853px) oraz iPad Pro (1024px).
+
+### Mały viewport w orientacji poziomej
+
+Gdy viewport jest zbyt mały dla desktopowego layoutu osi czasu — gdzie rozwinięte bloki unoszą się powyżej i poniżej osi — aplikacja przełącza się na układ wyśrodkowany, w którym bloki pozostają na osi.
+
+```css
+@media only screen and (orientation: landscape) and (max-width: 1130px) and (max-height: 780px) {
+  /* style dla małego viewportu w orientacji poziomej */
+}
+```
+
+Progi `1130 x 780px` zostały dobrane tak, aby obejmować tablety takie jak iPad Mini w orientacji poziomej (1024 x 768px) oraz Surface Duo w orientacji poziomej (~1114 x 720px).
 
 ---
 
@@ -492,12 +506,12 @@ const isTouchDevice: boolean = useIsTouchDevice();
 
 ### 3. useIsMobileLandscape (`src/hooks/useIsMobileLandscape.ts`)
 
-Identyfikuje urządzenia mobilne w orientacji poziomej na podstawie szerokości, wysokości i proporcji ekranu.
+Wykrywa, czy aktualny viewport jest zbyt mały dla desktopowego layoutu osi czasu w orientacji poziomej.
 
 **Kryteria wykrywania:**
 
-- Szerokość ekranu ≤ 940px
-- Wysokość ekranu ≤ 520px
+- Szerokość ekranu ≤ 1130px
+- Wysokość ekranu ≤ 780px
 - Orientacja landscape (szerokość > wysokość)
 
 Wartości progowe są zdefiniowane w `src/constants/viewport.ts` i zsynchronizowane z odpowiadającym media query w `globals.css`, eliminując duplikację i ryzyko niespójności.
@@ -510,7 +524,7 @@ const isMobileLandscape: boolean = useIsMobileLandscape();
 
 **Zastosowanie:**
 
-- Specjalne pozycjonowanie elementów `TimelineEvent` na małych ekranach w trybie poziomym
+- Pozycjonowanie elementów `TimelineEvent` gdy viewport jest zbyt mały dla desktopowego layoutu — bloki pozostają wyśrodkowane na osi zamiast unosić się powyżej/poniżej niej
 - Dostosowanie layoutu dla lepszej czytelności i użyteczności
 - Alternatywne offsety dla ograniczonej przestrzeni pionowej
 
