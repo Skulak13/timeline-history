@@ -3,6 +3,8 @@
 import React, { useState } from "react";
 import Image from "next/image";
 import { motion, AnimatePresence } from "framer-motion";
+import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
+import { getNextIndex, getPrevIndex } from "@/utils/cyclicIndex";
 
 interface GalleryProps {
   galleryImageUrl: string;
@@ -79,6 +81,46 @@ const Gallery: React.FC<GalleryProps> = ({
   const handleToggleGallery = () => {
     setIsGalleryOpen((prev) => !prev);
   };
+
+  // Indeksy elementów typu "image" w galleryItems — strzałki poruszają się tylko po nich,
+  // pomijając ostatni element tekstowy, którego nie ma sensu "powiększać"
+  const imageIndices = galleryItems.flatMap((item, i) =>
+    item.type === "image" ? [i] : []
+  );
+
+  const getCurrentImagePos = () =>
+    activeElement?.source === "gallery"
+      ? Math.max(imageIndices.indexOf(activeElement.index), 0)
+      : 0;
+
+  const galleryPanelId = "gallery-items-panel";
+
+  // ====== Klawiatura na przycisku "Moje zainteresowania": wspólny hook ======
+  const handleTriggerKeyDown = useKeyboardNavigation<HTMLButtonElement>({
+    isOpen: isGalleryOpen,
+    hasNavigation: imageIndices.length > 0,
+    // Enter na klawiaturze ma WYŁĄCZNIE otwierać — zamyka tylko Escape
+    // (inaczej natywny <button> przełączałby stan przy każdym Enterze)
+    enterTogglesClose: false,
+    onOpen: () => {
+      setIsGalleryOpen(true);
+      if (imageIndices.length > 0) {
+        setActiveElement({ source: "gallery", index: imageIndices[0] });
+      }
+    },
+    onClose: () => {
+      setIsGalleryOpen(false);
+      setActiveElement(null);
+    },
+    onNext: () => {
+      const nextPos = getNextIndex(getCurrentImagePos(), imageIndices.length);
+      setActiveElement({ source: "gallery", index: imageIndices[nextPos] });
+    },
+    onPrev: () => {
+      const prevPos = getPrevIndex(getCurrentImagePos(), imageIndices.length);
+      setActiveElement({ source: "gallery", index: imageIndices[prevPos] });
+    },
+  });
 
   // ====== 1. Zamiast mouse/touch - obsługa Pointer Events ======
   const handlePointerEnter = (index: number, e: React.PointerEvent) => {
@@ -159,7 +201,11 @@ const Gallery: React.FC<GalleryProps> = ({
       <div className="flex items-end">
         <button
           onClick={handleToggleGallery}
-          className="flex flex-col items-center group cursor-pointer bg-transparent border-none"
+          onKeyDown={handleTriggerKeyDown}
+          aria-expanded={isGalleryOpen}
+          aria-controls={galleryPanelId}
+          aria-label="Moje zainteresowania — rozwiń galerię"
+          className="flex flex-col items-center group cursor-pointer bg-transparent border-none outline-0 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4 rounded"
         >
           <div className="relative w-[90px] h-[90px] xs:w-[109px] xs:h-[109px] 3sm:w-[150px] 3sm:h-[150px] 4lg:w-[170px] 4lg:h-[170px]">
             <Image
@@ -179,6 +225,7 @@ const Gallery: React.FC<GalleryProps> = ({
         <AnimatePresence>
           {isGalleryOpen && (
             <motion.div
+              id={galleryPanelId}
               initial={{ width: 0 }}
               animate={{ width: "auto" }}
               exit={{ width: 0 }}

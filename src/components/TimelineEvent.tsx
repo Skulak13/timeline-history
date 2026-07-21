@@ -12,6 +12,8 @@ import HyphenatedText from "./common/HyphenatedText";
 import useIsMobileLandscape from "@/hooks/useIsMobileLandscape";
 import useIsTouchDevice from "@/hooks/useIsTouchDevice";
 import useViewportHeight from "@/hooks/useViewportHeight";
+import { useKeyboardNavigation } from "@/hooks/useKeyboardNavigation";
+import { getNextIndex, getPrevIndex } from "@/utils/cyclicIndex";
 
 interface GalleryImage {
   url: string;
@@ -86,9 +88,12 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
     }, 150);
   };
 
+  const [isKeyboardActive, setIsKeyboardActive] = useState(false);
+
   const handlePointerEnter = (e: React.PointerEvent) => {
     if (e.pointerType === "mouse") {
       cancelTimer();
+      setIsKeyboardActive(false);
       setActiveElement({ source: "timeline", index });
     }
   };
@@ -102,6 +107,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
   const handlePointerUp = (e: React.PointerEvent) => {
     if (e.pointerType === "touch") {
       e.stopPropagation();
+      setIsKeyboardActive(false);
       if (isActive) {
         setActiveElement(null);
       } else {
@@ -109,6 +115,37 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
       }
     }
   };
+
+  const panelId = `timeline-event-panel-${index}`;
+
+  // ====== Klawiatura: wspólny hook (disclosure + roving arrows) ======
+  const handleKeyDown = useKeyboardNavigation<HTMLDivElement>({
+    isOpen: isActive,
+    enterTogglesClose: true,
+    hasNavigation: Boolean(timelineGalleryImages),
+    onOpen: () => {
+      setIsKeyboardActive(true);
+      setActiveElement({ source: "timeline", index });
+    },
+    onClose: () => {
+      setIsKeyboardActive(false);
+      setActiveElement(null);
+      // fokus celowo zostaje na kółku (nie wywołujemy blur) -
+      // Tab przechodzi dalej naturalnie do kolejnego eventu / przycisku Gallery
+    },
+    onNext: () => {
+      setCurrentImageIndex((prev) =>
+        getNextIndex(prev, timelineGalleryImages!.length)
+      );
+      if (isTouchDevice) resetCaptionTimer();
+    },
+    onPrev: () => {
+      setCurrentImageIndex((prev) =>
+        getPrevIndex(prev, timelineGalleryImages!.length)
+      );
+      if (isTouchDevice) resetCaptionTimer();
+    },
+  });
 
   const renderIcon = () => {
     switch (iconType) {
@@ -220,14 +257,20 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
 
       <div className="flex flex-col items-center">
         <motion.div
-          className="absolute w-[3.84vw] h-[3.84vw] bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] rounded-full inset-y-0 my-auto flex items-center justify-center shadow-lg cursor-pointer"
+          className="absolute w-[3.84vw] h-[3.84vw] bg-gradient-to-r from-[#FF5F6D] to-[#FFC371] rounded-full inset-y-0 my-auto flex items-center justify-center shadow-lg cursor-pointer outline-0 focus-visible:outline-2 focus-visible:outline-white focus-visible:outline-offset-4"
           animate={{
             scale: isActive ? 1.2 : 1,
             boxShadow: isActive ? "0px 0px 15px rgba(0,0,0,0.5)" : "none",
           }}
+          tabIndex={0}
+          role="button"
+          aria-expanded={isActive}
+          aria-controls={panelId}
+          aria-label={`${text} — rozwiń szczegóły wydarzenia`}
           onPointerEnter={handlePointerEnter}
           onPointerLeave={handlePointerLeave}
           onPointerUp={handlePointerUp}
+          onKeyDown={handleKeyDown}
           style={{ zIndex: 1001 }}
         >
           {renderIcon()}
@@ -244,6 +287,7 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
         >
           <motion.div
             layout
+            id={panelId}
             style={{
               transformOrigin: isMobileLandscape
                 ? "center"
@@ -303,7 +347,11 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                         </motion.div>
                       ) : (
                         <div
-                          className="absolute left-0 w-full text-center caption-big-font-650 text-sm text-white px-1 py-1 bg-[#4CE0D2] opacity-0 group-hover:opacity-88 transition-opacity duration-300"
+                          className={`absolute left-0 w-full text-center caption-big-font-650 text-sm text-white px-1 py-1 bg-[#4CE0D2] transition-opacity duration-300 ${
+                            isKeyboardActive
+                              ? "opacity-88"
+                              : "opacity-0 group-hover:opacity-88"
+                          }`}
                           style={
                             captionPosition === "top"
                               ? { top: 0 }
@@ -316,6 +364,8 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                     {timelineGalleryImages && (
                       <>
                         <button
+                          tabIndex={-1}
+                          aria-hidden="true"
                           onPointerUp={(e) => e.stopPropagation()}
                           onClick={handlePrev}
                           className="absolute left-0 top-1/2 transform -translate-y-1/2 bg-[#4CE0D2] p-2 rounded-full opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
@@ -323,6 +373,8 @@ const TimelineEvent: React.FC<TimelineEventProps> = ({
                           <FaArrowLeft className="text-white w-2 h-2" />
                         </button>
                         <button
+                          tabIndex={-1}
+                          aria-hidden="true"
                           onPointerUp={(e) => e.stopPropagation()}
                           onClick={handleNext}
                           className="absolute right-0 top-1/2 transform -translate-y-1/2 bg-[#4CE0D2] p-2 rounded-full opacity-70 hover:opacity-100 transition-opacity cursor-pointer"
